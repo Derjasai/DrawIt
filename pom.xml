@@ -3,13 +3,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>edu.eci.arsw.msgbroker</groupId>
-    <artifactId>websockets-msbroker-example</artifactId>
+    <groupId>edu.eci.arsw.drawit</groupId>
+    <artifactId>drawit</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>websockets-msbroker-example</name>
-    <description>Demo project for Spring Boot</description>
+    <name>DrawIt!!!</name>
+    <description>Juego en el cual se podrá evalular habiliades artisticas y divertirse un rato con  un grupo de amigos</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
