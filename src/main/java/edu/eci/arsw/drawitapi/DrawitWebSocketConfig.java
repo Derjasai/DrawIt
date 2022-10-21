@@ -21,6 +21,5 @@ public class DrawitWebSocketConfig extends AbstractWebSocketMessageBrokerConfigu
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/stompendpoint").withSockJS();
-
     }
 }

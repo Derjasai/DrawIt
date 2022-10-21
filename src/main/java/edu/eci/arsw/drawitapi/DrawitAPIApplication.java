@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"edu.eci.arsw.drawit"})
+@ComponentScan(basePackages = {"edu.eci.arsw"})
 public class DrawitAPIApplication {
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(DrawitAPIApplication.class);

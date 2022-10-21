@@ -8,16 +8,14 @@
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
 
-    <title>Loggin User</title>
+    <title>Canvas</title>
     <script src="JS/app.js"></script>
     <script src="JS/apiclient.js"></script>
-
 </head>
-<body>
-<div>
-    <label for="userName">Ingresar Nombre</label><input id="userName">
-    <button onclick="app.createUser()">Ingresar</button>
-    <label id="prueba"></label>
+<body onload="app.init()">
+<div class="canva">
+    <canvas id="myCanvas" width="400" height="400" style="border:1px solid #000000;"></canvas>
+    <button>Clear Canvas</button>
 </div>
 </body>
 </html>

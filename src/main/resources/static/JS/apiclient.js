@@ -13,7 +13,6 @@ var apiclient = (function (){
     };
 
     var addUser = function (name){
-        alert(name)
         var data = JSON.stringify({name:name});
         return new Promise(function (resolve, reject){
             resolve(
