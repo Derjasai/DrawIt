@@ -29,7 +29,6 @@ public class DrawitAPIController {
             return new ResponseEntity<>("Error",HttpStatus.NOT_FOUND);
         }
         Gson gson = new Gson();
-
         return new ResponseEntity<>(gson.toJson(user), HttpStatus.ACCEPTED);
 
     }
@@ -45,5 +44,16 @@ public class DrawitAPIController {
             return new ResponseEntity<>("Error bla bla bla",HttpStatus.FORBIDDEN);
         }
 
+    }
+
+    @RequestMapping(path="/{name}",method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    public  ResponseEntity<?> addPointUser(@PathVariable String name,@RequestBody User user){
+        try {
+            ds.addPointToUser(user);
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        }catch (Exception ex){
+            Logger.getLogger(DrawitAPIController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>("Error bla bla bla",HttpStatus.FORBIDDEN);
+        }
     }
 }

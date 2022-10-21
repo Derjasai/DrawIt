@@ -1,7 +1,6 @@
 var apiclient = apiclient;
 var app = (function (){
 
-    var name;
     var stompClient = null;
 
     function createUser(){
@@ -12,12 +11,42 @@ var app = (function (){
             .catch(error => console.log(error))
     }
 
-    function getUser(data){
-        apiclient.getUser("daniel", prueba);
+    function getPointsUser(){
+        apiclient.getUser(sessionStorage.getItem("name"), graficarPuntosExistentes);
+    }
+
+    var graficarPuntosExistentes = function(data){
+        if(data.points.length > 0){
+            console.log(data.points[0])
+            data.points.forEach((element) => {
+                var canvas = document.getElementById("myCanvas");
+                var ctx = canvas.getContext("2d");
+                ctx.beginPath();
+                ctx.arc(element.x, element.y, 3, 0, 2 * Math.PI);
+                ctx.stroke();
+            })
+//            can = document.getElementById("myCanvas");
+//            ctx = can.getContext("2d");
+//            ctx.beginPath();
+//            var plano = data.points;
+//            var temp =[];
+//            for (let i = 0; i < plano.length; i++) {
+//                temp[i] = plano[i]
+//            }
+//            blueprintsPoints = temp.slice(1, temp.length);
+//            initx = data.points[0].x;
+//            inity = data.points[0].y;
+//            blueprintsPoints.forEach((element) => {
+//            ctx.moveTo(initx, inity);
+//            ctx.lineTo(element.x, element.y);
+//            ctx.stroke();
+//            initx = element.x;
+//            inity = element.y;
+//            });
+        }
     }
 
     var connectAndSubscribe = function () {
-        console.info('Connecting to WS...');
         var socket = new SockJS('/stompendpoint');
         stompClient = Stomp.over(socket);
 
@@ -25,14 +54,11 @@ var app = (function (){
         stompClient.connect({}, function (frame) {
             stompClient.subscribe('/topic/'+sessionStorage.getItem("name"), function (eventbody) {
                 var point = JSON.parse(eventbody.body);
-                drawCanvas(point);
+                apiclient.addPoint(point.x, point.y,sessionStorage.getItem("name"))
+                drawCanvas();
             });
         });
     };
-
-    var prueba = function (){
-        stompClient.send("/topic/"+name, {}, JSON.stringify("hola"));
-    }
 
     var mousePos = function(evt){
         canvas = document.getElementById("myCanvas");
@@ -49,16 +75,14 @@ var app = (function (){
         ctx.clearRect(0, 0, can.width, can.height);
     }
 
-    var drawCanvas = function(point){
-        var canvas = document.getElementById("myCanvas");
-        var ctx = canvas.getContext("2d");
-        ctx.beginPath();
-        ctx.arc(point.x, point.y, 3, 0, 2 * Math.PI);
-        ctx.stroke();
+    var drawCanvas = function(){
+        clearCanvas();
+        getPointsUser();
     };
 
     var init = function (){
         connectAndSubscribe();
+        getPointsUser();
         var canvas = document.getElementById("myCanvas"),
             context = canvas.getContext("2d");
 
@@ -74,8 +98,6 @@ var app = (function (){
 
     return {
         createUser: createUser,
-        getUser: getUser,
-        prueba:prueba,
         init:init
     }
 })();
