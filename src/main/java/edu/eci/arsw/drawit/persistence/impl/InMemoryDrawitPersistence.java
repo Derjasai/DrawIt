@@ -55,4 +55,11 @@ public class InMemoryDrawitPersistence implements DrawitPersistence {
     public void addPointToUser(User user) {
         participantes.get(user.getName()).addPoint(user.getPoints().get(0));
     }
+
+    @Override
+    public void delteAllPointsUser(String name) {
+        participantes.get(name).deletePoints();
+    }
+
+
 }

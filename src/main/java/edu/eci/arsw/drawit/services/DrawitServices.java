@@ -36,4 +36,8 @@ public class DrawitServices {
     public void addPointToUser(User user){
         dip.addPointToUser(user);
     }
+
+    public void delteAllPointsUser(String name){
+        dip.delteAllPointsUser(name);
+    }
 }

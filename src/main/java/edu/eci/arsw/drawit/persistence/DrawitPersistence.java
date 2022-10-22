@@ -21,4 +21,6 @@ public interface DrawitPersistence {
     public ArrayList<Point> getPointsByUser(String name);
 
     public void addPointToUser(User user);
+
+    public void delteAllPointsUser(String name);
 }

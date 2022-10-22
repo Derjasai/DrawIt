@@ -12,7 +12,7 @@ public class DrawitAPIApplication {
     public static void main(String[] args) {
         SpringApplication app = new SpringApplication(DrawitAPIApplication.class);
         app.setDefaultProperties(Collections
-                .singletonMap("server.port", "8090"));
+                .singletonMap("server.port", "8080"));
         app.run(args);
     }
 }

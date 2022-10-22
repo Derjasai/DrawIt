@@ -45,15 +45,4 @@ public class DrawitAPIController {
         }
 
     }
-
-    @RequestMapping(path="/{name}",method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public  ResponseEntity<?> addPointUser(@PathVariable String name,@RequestBody User user){
-        try {
-            ds.addPointToUser(user);
-            return new ResponseEntity<>(HttpStatus.ACCEPTED);
-        }catch (Exception ex){
-            Logger.getLogger(DrawitAPIController.class.getName()).log(Level.SEVERE, null, ex);
-            return new ResponseEntity<>("Error bla bla bla",HttpStatus.FORBIDDEN);
-        }
-    }
 }

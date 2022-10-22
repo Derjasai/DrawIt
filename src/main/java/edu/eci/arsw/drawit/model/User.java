@@ -7,8 +7,9 @@ public class User {
     private String name;
     private ArrayList<Point> points = new ArrayList<>();
 
-    public User(String name){
+    public User(String name, ArrayList<Point> points){
         this.name = name;
+        this.points = points;
     }
     public User(){}
 
@@ -30,5 +31,9 @@ public class User {
 
     public void addPoint(Point point){
         this.points.add(point);
+    }
+
+    public void deletePoints(){
+        this.points.clear();
     }
 }
