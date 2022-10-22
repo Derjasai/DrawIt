@@ -17,13 +17,8 @@ var app = (function (){
 
     var graficarPuntosExistentes = function(data){
         if(data.points.length > 0){
-            console.log(data.points[0])
             data.points.forEach((element) => {
-                var canvas = document.getElementById("myCanvas");
-                var ctx = canvas.getContext("2d");
-                ctx.beginPath();
-                ctx.arc(element.x, element.y, 3, 0, 2 * Math.PI);
-                ctx.stroke();
+                drawCanvas(element);
             })
 //            can = document.getElementById("myCanvas");
 //            ctx = can.getContext("2d");
@@ -43,6 +38,8 @@ var app = (function (){
 //            initx = element.x;
 //            inity = element.y;
 //            });
+        }else{
+            clearCanvas();
         }
     }
 
@@ -54,8 +51,8 @@ var app = (function (){
         stompClient.connect({}, function (frame) {
             stompClient.subscribe('/topic/'+sessionStorage.getItem("name"), function (eventbody) {
                 var point = JSON.parse(eventbody.body);
-                apiclient.addPoint(point.x, point.y,sessionStorage.getItem("name"))
-                drawCanvas();
+
+                drawCanvas(point);
             });
         });
     };
@@ -69,15 +66,23 @@ var app = (function (){
         };
     }
 
-    function clearCanvas(){
+    var clearCanvas = function(){
         can = document.getElementById("myCanvas");
         ctx = can.getContext("2d");
         ctx.clearRect(0, 0, can.width, can.height);
     }
 
-    var drawCanvas = function(){
-        clearCanvas();
-        getPointsUser();
+    var deletePoints = function(){
+
+    }
+
+    var drawCanvas = function(point){
+        apiclient.addPoint(point.x, point.y,sessionStorage.getItem("name"))
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+        ctx.beginPath();
+        ctx.arc(point.x, point.y, 3, 0, 2 * Math.PI);
+        ctx.stroke();
     };
 
     var init = function (){
@@ -98,6 +103,7 @@ var app = (function (){
 
     return {
         createUser: createUser,
-        init:init
+        init:init,
+        clearCanvas: clearCanvas
     }
 })();

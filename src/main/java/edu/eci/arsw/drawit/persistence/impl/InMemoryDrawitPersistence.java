@@ -29,10 +29,6 @@ public class InMemoryDrawitPersistence implements DrawitPersistence {
     @Override
     public User getUser(String name) throws DrawitPersistenceException{
         Set<String> keys = participantes.keySet();
-
-        for (String name2: keys){
-            System.out.println(participantes.get(name2).getName() + "----------");
-        }
         if(!participantes.containsKey(name)){
             throw new DrawitPersistenceException(DrawitPersistenceException.NO_USER);
         }
