@@ -29,7 +29,6 @@ public class DrawitAPIController {
             return new ResponseEntity<>("Error",HttpStatus.NOT_FOUND);
         }
         Gson gson = new Gson();
-
         return new ResponseEntity<>(gson.toJson(user), HttpStatus.ACCEPTED);
 
     }

@@ -1,13 +1,12 @@
 package edu.eci.arsw.drawit.persistence.impl;
 
+import edu.eci.arsw.drawit.model.Point;
 import edu.eci.arsw.drawit.model.User;
 import edu.eci.arsw.drawit.persistence.DrawitPersistence;
 import edu.eci.arsw.drawit.persistence.DrawitPersistenceException;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Service
@@ -22,11 +21,14 @@ public class InMemoryDrawitPersistence implements DrawitPersistence {
 
     @Override
     public void saveUser(User user) {
-        participantes.put(user.getName(), user);
+        if(!participantes.containsKey(user.getName())){
+            participantes.put(user.getName(), user);
+        }
     }
 
     @Override
     public User getUser(String name) throws DrawitPersistenceException{
+        Set<String> keys = participantes.keySet();
         if(!participantes.containsKey(name)){
             throw new DrawitPersistenceException(DrawitPersistenceException.NO_USER);
         }
@@ -43,4 +45,21 @@ public class InMemoryDrawitPersistence implements DrawitPersistence {
         }
         return users;
     }
+
+    @Override
+    public ArrayList<Point> getPointsByUser(String name) {
+        return participantes.get(name).getPoints();
+    }
+
+    @Override
+    public void addPointToUser(User user) {
+        participantes.get(user.getName()).addPoint(user.getPoints().get(0));
+    }
+
+    @Override
+    public void delteAllPointsUser(String name) {
+        participantes.get(name).deletePoints();
+    }
+
+
 }

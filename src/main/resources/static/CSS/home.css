@@ -1,0 +1,16 @@
+.abs-center {
+  display: flex;
+  justify-content: center;
+
+}
+
+.abs-left {
+  display: flex;
+  justify-content: left;
+
+}
+.abs-right {
+  display: flex;
+  justify-content: right;
+
+}
