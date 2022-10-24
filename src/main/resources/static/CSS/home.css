@@ -1,3 +1,6 @@
+html {height: 100%;}
+body {background-image: linear-gradient(#FFFFFF, rgb(204, 209, 209));}
+
 .abs-center {
   display: flex;
   justify-content: center;
@@ -12,5 +15,39 @@
 .abs-right {
   display: flex;
   justify-content: right;
+  align-items: center;
+  width: 800px;
+  height: 50px;
+}
 
+.canva-center {
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+}
+
+.ask {
+
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  width: 1000px;
+  height: 50px;
+
+}
+
+h1.concss {
+    font-size: 34px;
+    font-weight: bold;
+    font-style: italic;
+    font-variant: small-caps;
+    font-family: monospace;
+    text-transform: capitalize;
+    letter-spacing: 4px;
+    color: #1C2833;
+    text-align:center;
+    word-spacing: 8px
 }
