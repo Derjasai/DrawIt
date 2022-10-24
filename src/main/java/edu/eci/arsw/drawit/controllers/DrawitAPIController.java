@@ -45,4 +45,15 @@ public class DrawitAPIController {
         }
 
     }
+
+    @RequestMapping(path = "/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getUsers() {
+        try {
+            Gson gson = new Gson();
+            return new ResponseEntity<>(gson.toJson(ds.getAllUsers()), HttpStatus.ACCEPTED);
+        } catch (Exception e) {
+            Logger.getLogger(DrawitAPIController.class.getName()).log(Level.SEVERE, null, e);
+            return new ResponseEntity<>("Error al buscar a los participantes", HttpStatus.NOT_FOUND);
+        }
+    }
 }

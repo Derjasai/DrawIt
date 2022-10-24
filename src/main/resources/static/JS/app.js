@@ -11,6 +11,21 @@ var app = (function (){
             .catch(error => console.log(error))
     }
 
+    function getAllUsers(){
+        apiclient.getAllUsers(tableButton);
+    }
+
+    var tableButton = function(data){
+        $("#table tbody").empty();
+        newRow.map((elements) => {
+            $("#table > tbody:last").append($("<button onclick=app.createUser()>"+ elements.userName +"</button>"));
+        });
+    }
+
+    function mensaje(){
+        alert(getAllUsers);
+    }
+
     function getPointsUser(){
         apiclient.getUser(sessionStorage.getItem("name"), drawAllPointsCanvas);
     }
