@@ -37,10 +37,29 @@
                 <label for="floatingInputAsk">Digitar pregunta</label>
                 <button class="btn btn-outline-success" type="button">Publicar pregunta</button>
             </div>
-            <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="floatingInputPist" placeholder="name@example.com">
-                <label for="floatingInputPist">Digitar pista</label>
-                <button class="btn btn-outline-success" type="button">Publicar pista</button>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-outline-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Publicar Pista
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Unirse a una partida</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control" id="floatingInputAsk" placeholder="name@example.com">
+                            <label for="floatingInputAsk">Digitar pregunta</label>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Salir</button>
+                            <button class="btn btn-primary" onclick="app.createUser()">Iniciar</button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -48,6 +67,17 @@
     <br>
     <h1 class="concss"> PARTICIPANTES </h1>
 
+    <div id="body-part">
+        <table id="participantesTable">
+            <thead>
+            <tr>
+                <th>Participantes</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
 
 
 
