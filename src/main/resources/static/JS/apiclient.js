@@ -27,9 +27,31 @@ var apiclient = (function (){
         })
     };
 
+    var getAllUsers = function(callback){
+        $.ajax({
+                type: "GET",
+                url: "drawit/all",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function(data){
+                callback(data)}});
+    };
+
+    var getMasterName = function(callback){
+        $.ajax({
+            type: "GET",
+            url: "drawit/masterName/masterName",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(data){
+                callback(data)}});
+    };
+
     return{
         getUser: getUser,
-        addUser: addUser
+        addUser: addUser,
+        getAllUsers: getAllUsers,
+        getMasterName: getMasterName
         }
     }
 )();

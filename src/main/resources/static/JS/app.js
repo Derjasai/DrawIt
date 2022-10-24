@@ -11,6 +11,53 @@ var app = (function (){
             .catch(error => console.log(error))
     }
 
+    function createMaster(){
+        sessionStorage.setItem("name",$("#masterName").val());
+        apiclient.addUser($("#masterName").val()).then(()=>{
+            window.location = "pantallaMaster.html";
+        })
+            .catch(error => console.log(error))
+    }
+
+    var getUsers = function (){
+        connectAndSubscribe();
+        paintUsers()
+    }
+
+    var paintUsers = function (){
+        apiclient.getAllUsers(printTable);
+    }
+
+    var printTable = function (data){
+        $("#participantesTable tbody").empty();
+        const datanew = data.map((elemento) =>{
+            return{
+                name : elemento.name
+            }
+        });
+        datanew.map((element) => {
+            $("#participantesTable > tbody:last").append($(
+                "<div >\n" +
+                "<br><br>"+
+                "        <ul class=\"nav\">\n" +
+                "            <li><a  >"+ element.name +"</a>\n" +
+                "                <ul>\n" +
+                "                    <li><a onclick='app.reDirectCanvaParticipante(\""+ element.name +"\")'>Observar Pantalla</a></li>\n" +
+                "                    <li><a class=\"btn-abrir-win\" id=\"btn-abrir-win\">Escoger Ganador</a></li>\n" +
+                "                    <li><a >Expulsar</a></li>\n" +
+                "                </ul>\n" +
+                "            </li>\n" +
+                "        </ul>\n" +
+                "    </div>" + "</td>"));
+        });
+    }
+
+    var reDirectCanvaParticipante = function (namePaticipante){
+        stompClient.subscribe('/topic/'+namePaticipante);
+        window.location = "canvasParticipante.html";
+    }
+
+
     function getPointsUser(){
         apiclient.getUser(sessionStorage.getItem("name"), drawAllPointsCanvas);
     }
@@ -24,7 +71,10 @@ var app = (function (){
             stompClient.subscribe('/topic/'+sessionStorage.getItem("name"), function (eventbody) {
                 if (eventbody.body === "delete"){
                     clearCanvas()
-                }else{
+                }else if(eventbody.body === "actualizarUsuarios"){
+                    paintUsers();
+                }
+                else{
                     var point = JSON.parse(eventbody.body);
                     drawPointCanvas(point);
                 }
@@ -60,6 +110,10 @@ var app = (function (){
         ctx.stroke();
     };
 
+    var userConnected = function (data){
+        stompClient.send("/topic/"+data.name, {}, "actualizarUsuarios");
+    }
+
     var drawAllPointsCanvas = function (data){
         if(data.points.length > 0) {
             data.points.forEach((element) => {
@@ -69,10 +123,17 @@ var app = (function (){
     }
 
     var init = function (){
+
         connectAndSubscribe();
+        setTimeout(()=>{apiclient.getMasterName(userConnected)},500)
+
         getPointsUser();
         var canvas = document.getElementById("myCanvas"),
             context = canvas.getContext("2d");
+
+
+
+
 
         //if PointerEvent is suppported by the browser:
         if(window.PointerEvent) {
@@ -87,6 +148,11 @@ var app = (function (){
     return {
         createUser: createUser,
         init:init,
-        deletePoints: deletePoints
+        deletePoints: deletePoints,
+        getUsers: getUsers,
+        createMaster: createMaster,
+        reDirectCanvaParticipante   : reDirectCanvaParticipante,
+        test: function (){
+        }
     }
 })();
