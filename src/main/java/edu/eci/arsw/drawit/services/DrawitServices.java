@@ -40,4 +40,8 @@ public class DrawitServices {
     public void delteAllPointsUser(String name){
         dip.delteAllPointsUser(name);
     }
+
+    public User getMasterName(){
+        return dip.getMasterName();
+    }
 }

@@ -21,10 +21,15 @@ var app = (function (){
 
     var getUsers = function (){
         connectAndSubscribe();
+        paintUsers()
+    }
+
+    var paintUsers = function (){
         apiclient.getAllUsers(printTable);
     }
 
     var printTable = function (data){
+        $("#participantesTable tbody").empty();
         const datanew = data.map((elemento) =>{
             return{
                 name : elemento.name
@@ -35,11 +40,11 @@ var app = (function (){
                 "<div >\n" +
                 "<br><br>"+
                 "        <ul class=\"nav\">\n" +
-                "            <li><a href=\"\" >"+ element.name +"</a>\n" +
+                "            <li><a  >"+ element.name +"</a>\n" +
                 "                <ul>\n" +
-                "                    <li><a href=\"\" onclick='app'>Observar Pantalla</a></li>\n" +
+                "                    <li><a onclick='app'>Observar Pantalla</a></li>\n" +
                 "                    <li><a class=\"btn-abrir-win\" id=\"btn-abrir-win\" >Escoger Ganador</a></li>\n" +
-                "                    <li><a href=\"\">Expulsar</a></li>\n" +
+                "                    <li><a >Expulsar</a></li>\n" +
                 "                </ul>\n" +
                 "            </li>\n" +
                 "        </ul>\n" +
@@ -60,7 +65,10 @@ var app = (function (){
             stompClient.subscribe('/topic/'+sessionStorage.getItem("name"), function (eventbody) {
                 if (eventbody.body === "delete"){
                     clearCanvas()
-                }else{
+                }else if(eventbody.body === "actualizarUsuarios"){
+                    paintUsers();
+                }
+                else{
                     var point = JSON.parse(eventbody.body);
                     drawPointCanvas(point);
                 }
@@ -96,6 +104,10 @@ var app = (function (){
         ctx.stroke();
     };
 
+    var userConnected = function (data){
+        stompClient.send("/topic/"+data.name, {}, "actualizarUsuarios");
+    }
+
     var drawAllPointsCanvas = function (data){
         if(data.points.length > 0) {
             data.points.forEach((element) => {
@@ -105,10 +117,17 @@ var app = (function (){
     }
 
     var init = function (){
+
         connectAndSubscribe();
+        setTimeout(()=>{apiclient.getMasterName(userConnected)},500)
+
         getPointsUser();
         var canvas = document.getElementById("myCanvas"),
             context = canvas.getContext("2d");
+
+
+
+
 
         //if PointerEvent is suppported by the browser:
         if(window.PointerEvent) {
@@ -127,7 +146,6 @@ var app = (function (){
         getUsers: getUsers,
         createMaster: createMaster,
         test: function (){
-            alert("holi")
         }
     }
 })();

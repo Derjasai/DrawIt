@@ -13,6 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class InMemoryDrawitPersistence implements DrawitPersistence {
 
     private final Map<String,User> participantes = new ConcurrentHashMap<>();
+    private User masterName = null;
 
     public InMemoryDrawitPersistence(){
     }
@@ -21,7 +22,12 @@ public class InMemoryDrawitPersistence implements DrawitPersistence {
     @Override
     public void saveUser(User user) {
         if(!participantes.containsKey(user.getName())){
-            participantes.put(user.getName(), user);
+            if(user.getName().contains("Master")){
+                masterName = user;
+            }else{
+                participantes.put(user.getName(), user);
+            }
+
         }
     }
 
@@ -58,6 +64,11 @@ public class InMemoryDrawitPersistence implements DrawitPersistence {
     @Override
     public void delteAllPointsUser(String name) {
         participantes.get(name).deletePoints();
+    }
+
+    @Override
+    public User getMasterName() {
+        return masterName;
     }
 
 
