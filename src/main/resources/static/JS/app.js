@@ -11,19 +11,40 @@ var app = (function (){
             .catch(error => console.log(error))
     }
 
-    function getAllUsers(){
-        apiclient.getAllUsers(tableButton);
+    function createMaster(){
+        sessionStorage.setItem("name",$("#masterName").val());
+        apiclient.addUser($("#masterName").val()).then(()=>{
+            window.location = "pantallaMaster.html";
+        })
+            .catch(error => console.log(error))
     }
 
-    var tableButton = function(data){
-        $("#table tbody").empty();
-        newRow.map((elements) => {
-            $("#table > tbody:last").append($("<button onclick=app.createUser()>"+ elements.userName +"</button>"));
+    var getUsers = function (){
+        connectAndSubscribe();
+        apiclient.getAllUsers(printTable);
+    }
+
+    var printTable = function (data){
+        const datanew = data.map((elemento) =>{
+            return{
+                name : elemento.name
+            }
         });
-    }
-
-    function mensaje(){
-        alert(getAllUsers);
+        datanew.map((element) => {
+            $("#participantesTable > tbody:last").append($(
+                "<div >\n" +
+                "<br><br>"+
+                "        <ul class=\"nav\">\n" +
+                "            <li><a href=\"\" >"+ element.name +"</a>\n" +
+                "                <ul>\n" +
+                "                    <li><a href=\"\" onclick='app'>Observar Pantalla</a></li>\n" +
+                "                    <li><a class=\"btn-abrir-win\" id=\"btn-abrir-win\" >Escoger Ganador</a></li>\n" +
+                "                    <li><a href=\"\">Expulsar</a></li>\n" +
+                "                </ul>\n" +
+                "            </li>\n" +
+                "        </ul>\n" +
+                "    </div>" + "</td>"));
+        });
     }
 
     function getPointsUser(){
@@ -102,6 +123,11 @@ var app = (function (){
     return {
         createUser: createUser,
         init:init,
-        deletePoints: deletePoints
+        deletePoints: deletePoints,
+        getUsers: getUsers,
+        createMaster: createMaster,
+        test: function (){
+            alert("holi")
+        }
     }
 })();

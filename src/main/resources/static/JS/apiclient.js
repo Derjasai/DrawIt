@@ -32,7 +32,7 @@ var apiclient = (function (){
                 type: "GET",
                 url: "drawit/all",
                 contentType: "application/json; charset=utf-8",
-                dataType: json,
+                dataType: "json",
                 success: function(data){
                 callback(data)}});
     };

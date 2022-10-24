@@ -15,7 +15,6 @@ public class InMemoryDrawitPersistence implements DrawitPersistence {
     private final Map<String,User> participantes = new ConcurrentHashMap<>();
 
     public InMemoryDrawitPersistence(){
-
     }
 
 

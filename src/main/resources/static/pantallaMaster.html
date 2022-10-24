@@ -6,29 +6,35 @@
     <link rel="stylesheet" href="CSS/spantallaMaster.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600|Open+Sans" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+
+    <script src="/webjars/jquery/jquery.min.js"></script>
+<!--    <script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+
     <script src="JS/app.js"></script>
     <script src="JS/apiclient.js"></script>
 
     <title>Modulo Master</title>
 
 </head>
-<body>
+<body onload="app.getUsers()">
     <div class="centro">
         <input id="cuadroTexto" type="text" placeholder="Dijitar la pregunta">
         <input id="botonPregunta" type="submit" value="Publicar Pregunta">
         <button id="btn-abrir-popup" class="btn-abrir-popup">Publicar Pista</button>
     </div>
-    <div id="botonParticipante">
-        <ul class="nav">
-            <li><a href="">Participante</a>
-                <ul>
-                    <li><a href="">Observar Pantalla</a></li>
-                    <li><a class="btn-abrir-win" id="btn-abrir-win">Escoger Ganador</a></li>
-                    <li><a href="">Expulsar</a></li>
-                </ul>
-            </li>
-        </ul>
-    </div>
+<!--    <div id="botonParticipante">-->
+<!--        <ul class="nav">-->
+<!--            <li><a href="" >Participante</a>-->
+<!--                <ul>-->
+<!--                    <li><a href="">Observar Pantalla</a></li>-->
+<!--                    <li><a class="btn-abrir-win" id="btn-abrir-win">Escoger Ganador</a></li>-->
+<!--                    <li><a href="">Expulsar</a></li>-->
+<!--                </ul>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--    </div>-->
 
     <div class="overlay" id="overlay">
         <div class="popup" id="popup">
@@ -42,6 +48,18 @@
                 <input type="submit" class="btn-submit" value="Enviar">
             </form>
         </div>
+    </div>
+
+    <div id="body-part">
+        <table id="participantesTable">
+            <thead>
+            <tr>
+                <th>Participantes</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
     </div>
 
     <div class="overgame" id="overgame">
