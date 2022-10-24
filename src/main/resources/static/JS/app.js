@@ -42,8 +42,8 @@ var app = (function (){
                 "        <ul class=\"nav\">\n" +
                 "            <li><a  >"+ element.name +"</a>\n" +
                 "                <ul>\n" +
-                "                    <li><a onclick='app'>Observar Pantalla</a></li>\n" +
-                "                    <li><a class=\"btn-abrir-win\" id=\"btn-abrir-win\" >Escoger Ganador</a></li>\n" +
+                "                    <li><a onclick='app.reDirectCanvaParticipante(\""+ element.name +"\")'>Observar Pantalla</a></li>\n" +
+                "                    <li><a class=\"btn-abrir-win\" id=\"btn-abrir-win\">Escoger Ganador</a></li>\n" +
                 "                    <li><a >Expulsar</a></li>\n" +
                 "                </ul>\n" +
                 "            </li>\n" +
@@ -51,6 +51,12 @@ var app = (function (){
                 "    </div>" + "</td>"));
         });
     }
+
+    var reDirectCanvaParticipante = function (namePaticipante){
+        stompClient.subscribe('/topic/'+namePaticipante);
+        window.location = "canvasParticipante.html";
+    }
+
 
     function getPointsUser(){
         apiclient.getUser(sessionStorage.getItem("name"), drawAllPointsCanvas);
@@ -145,6 +151,7 @@ var app = (function (){
         deletePoints: deletePoints,
         getUsers: getUsers,
         createMaster: createMaster,
+        reDirectCanvaParticipante   : reDirectCanvaParticipante,
         test: function (){
         }
     }
