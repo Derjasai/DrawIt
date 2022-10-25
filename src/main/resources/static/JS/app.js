@@ -6,7 +6,7 @@ var app = (function (){
     function createUser(){
         sessionStorage.setItem("name",$("#userName").val());
         apiclient.addUser($("#userName").val()).then(()=>{
-            window.location = "canvasParticipante.html";
+            window.location = "participante.html";
         })
             .catch(error => console.log(error))
     }
@@ -14,7 +14,7 @@ var app = (function (){
     function createMaster(){
         sessionStorage.setItem("name",$("#masterName").val());
         apiclient.addUser($("#masterName").val()).then(()=>{
-            window.location = "pantallaMaster.html";
+            window.location = "master.html";
         })
             .catch(error => console.log(error))
     }
@@ -73,8 +73,8 @@ var app = (function (){
     }
 
     var reDirectCanvaParticipante = function (namePaticipante){
-        window.location="canvasParticipante.html"
-        sessionStorage.setItem("nombreParticipante", namePaticipante);
+        window.location="participante.html"
+        sessionStorage.setItem("userName", namePaticipante);
     }
 
 
@@ -171,7 +171,7 @@ var app = (function (){
                 });
             }
         }else{
-            conectarCavnaParticipante(sessionStorage.getItem("nombreParticipante"));
+            conectarCavnaParticipante(sessionStorage.getItem("userName"));
         }
 
     }
