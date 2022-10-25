@@ -19,7 +19,6 @@ var app = (function (){
     }
 
     function createMaster(){
-        apiclient.cleanParticipantes();
         var name = $("#masterName").val() + " Master";
         if(name !== ""){
             sessionStorage.setItem("name",name);
@@ -79,6 +78,8 @@ var app = (function (){
     var openWin = function (nombreGanador){
         apiclient.setGanador(nombreGanador).then(()=>{
             apiclient.getAllUsers(notificarGanador);
+            window.location="index.html"
+            apiclient.cleanParticipantes();
         })
     }
 
@@ -94,6 +95,7 @@ var app = (function (){
         data.forEach((element) => {
             stompClient.send("/topic/"+element.name, {}, "seleccionarGanador "+ganador);
         })
+
     }
 
     var reDirectCanvaParticipante = function (namePaticipante){
