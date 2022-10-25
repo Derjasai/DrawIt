@@ -19,15 +19,16 @@ var app = (function (){
     }
 
     function createMaster(){
-        var name = $("#masterName").val();
+        var name = $("#masterName").val() + " Master";
         if(name !== ""){
-
+            sessionStorage.setItem("name",name);
+            apiclient.addUser(name).then(()=>{
+                window.location = "master.html";
+            })
+                .catch(error => console.log(error))
+        }else {
+            alert("agrege un nombre valido porfavor")
         }
-        sessionStorage.setItem("name",);
-        apiclient.addUser($("#masterName").val()).then(()=>{
-            window.location = "master.html";
-        })
-            .catch(error => console.log(error))
     }
 
     var getUsers = function (name){
