@@ -47,6 +47,17 @@ var apiclient = (function (){
                 callback(data)}});
     };
 
+    var cleanParticipantes = function (){
+        return new Promise(function(resolve,reject){
+            resolve(
+                $.ajax({
+                    url: "drawit/clean",
+                    type: 'DELETE'
+                })
+            )
+        })
+    }
+
         var setGanador = function (name){
             return new Promise(function (resolve, reject){
                 resolve(
@@ -64,7 +75,8 @@ var apiclient = (function (){
         addUser: addUser,
         getAllUsers: getAllUsers,
         getMasterName: getMasterName,
-        setGanador: setGanador
+        setGanador: setGanador,
+        cleanParticipantes: cleanParticipantes
         }
     }
 )();

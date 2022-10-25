@@ -89,5 +89,10 @@ public class InMemoryDrawitPersistence implements DrawitPersistence {
         participantes.get(name).setGanador(true);
     }
 
+    @Override
+    public void deleteParticipantes() {
+        participantes.clear();
+    }
+
 
 }

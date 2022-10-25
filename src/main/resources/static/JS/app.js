@@ -19,6 +19,7 @@ var app = (function (){
     }
 
     function createMaster(){
+        apiclient.cleanParticipantes();
         var name = $("#masterName").val() + " Master";
         if(name !== ""){
             sessionStorage.setItem("name",name);

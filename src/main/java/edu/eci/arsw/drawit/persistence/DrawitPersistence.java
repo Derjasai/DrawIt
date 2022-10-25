@@ -29,4 +29,6 @@ public interface DrawitPersistence {
     public User getGanador();
 
     public void setGanador(String name);
+
+    public void deleteParticipantes();
 }

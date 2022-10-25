@@ -52,4 +52,6 @@ public class DrawitServices {
     public void setGanador(String name){
         dip.setGanador(name);
     }
+
+    public void deleteParticipantes(){dip.deleteParticipantes();}
 }
