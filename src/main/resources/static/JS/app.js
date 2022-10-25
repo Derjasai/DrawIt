@@ -64,6 +64,17 @@ var app = (function (){
         });
     }
 
+    var publicarPregunta = function (){
+        apiclient.getAllUsers(actualizarPreguntaParticiapantes);
+    }
+
+    var actualizarPreguntaParticiapantes = function (data){
+        var pregunta = $("#pregunta").val();
+        data.forEach((element) => {
+            stompClient.send("/topic/"+element.name, {}, "actualizarPregunta:" + pregunta);
+        })
+    }
+
     var openWin = function (nombreGanador){
         apiclient.setGanador(nombreGanador).then(()=>{
             apiclient.getAllUsers(notificarGanador);
@@ -112,6 +123,11 @@ var app = (function (){
                         var list = eventbody.body.split(" ")
                         $("#ganador").append(list[1])
                     }
+                }else if(eventbody.body.includes("actualizarPregunta")){
+
+                    var list = eventbody.body.split(":")
+                    alert("¡Se actualizó la pregunta!")
+                    document.getElementById("pregunta").value = list[1];
                 }
                 else{
                     var point = JSON.parse(eventbody.body);
@@ -196,6 +212,7 @@ var app = (function (){
         createMaster: createMaster,
         reDirectCanvaParticipante   : reDirectCanvaParticipante,
         openWin: openWin,
+        publicarPregunta: publicarPregunta,
         test: function (){
         }
     }
