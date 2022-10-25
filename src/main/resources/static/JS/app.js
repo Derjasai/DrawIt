@@ -4,15 +4,26 @@ var app = (function (){
     var stompClient = null;
 
     function createUser(){
-        sessionStorage.setItem("name",$("#userName").val());
-        apiclient.addUser($("#userName").val()).then(()=>{
-            window.location = "participante.html";
-        })
-            .catch(error => console.log(error))
+        var name = $("#userName").val();
+
+        if(name !== ""){
+            sessionStorage.setItem("name",name);
+            apiclient.addUser(name).then(()=>{
+                window.location = "participante.html";
+            })
+                .catch(error => console.log(error))
+        }else{
+            alert("agregue un nombre adecuado")
+        }
+
     }
 
     function createMaster(){
-        sessionStorage.setItem("name",$("#masterName").val());
+        var name = $("#masterName").val();
+        if(name !== ""){
+
+        }
+        sessionStorage.setItem("name",);
         apiclient.addUser($("#masterName").val()).then(()=>{
             window.location = "master.html";
         })
