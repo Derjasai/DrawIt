@@ -19,8 +19,8 @@ var app = (function (){
             .catch(error => console.log(error))
     }
 
-    var getUsers = function (){
-        connectAndSubscribe();
+    var getUsers = function (name){
+        connectAndSubscribe(sessionStorage.getItem("name"));
         paintUsers()
     }
 
@@ -53,22 +53,22 @@ var app = (function (){
     }
 
     var reDirectCanvaParticipante = function (namePaticipante){
-        stompClient.subscribe('/topic/'+namePaticipante);
-        window.location = "canvasParticipante.html";
+        window.location="canvasParticipante.html"
+        sessionStorage.setItem("nombreParticipante", namePaticipante);
     }
 
 
-    function getPointsUser(){
-        apiclient.getUser(sessionStorage.getItem("name"), drawAllPointsCanvas);
+    function getPointsUser(nombreParticipante){
+        apiclient.getUser(nombreParticipante, drawAllPointsCanvas);
     }
 
-    var connectAndSubscribe = function () {
+    var connectAndSubscribe = function (name) {
         var socket = new SockJS('/stompendpoint');
         stompClient = Stomp.over(socket);
 
         //subscribe to /topic/TOPICXX when connections succeed
         stompClient.connect({}, function (frame) {
-            stompClient.subscribe('/topic/'+sessionStorage.getItem("name"), function (eventbody) {
+            stompClient.subscribe('/topic/'+name, function (eventbody) {
                 if (eventbody.body === "delete"){
                     clearCanvas()
                 }else if(eventbody.body === "actualizarUsuarios"){
@@ -92,7 +92,7 @@ var app = (function (){
     }
 
     var deletePoints = function (){
-        stompClient.send("/app/delete."+name);
+        stompClient.send("/app/delete."+sessionStorage.getItem("name"));
     }
 
     var clearCanvas = function(){
@@ -122,27 +122,31 @@ var app = (function (){
         }
     }
 
+    var conectarCavnaParticipante = function (nombreParticipante){
+        connectAndSubscribe(nombreParticipante);
+        getPointsUser(nombreParticipante);
+    }
+
     var init = function (){
 
-        connectAndSubscribe();
-        setTimeout(()=>{apiclient.getMasterName(userConnected)},500)
-
-        getPointsUser();
-        var canvas = document.getElementById("myCanvas"),
-            context = canvas.getContext("2d");
-
-
-
-
-
-        //if PointerEvent is suppported by the browser:
-        if(window.PointerEvent) {
-            canvas.addEventListener("pointerdown", function(event){
-                 var point = mousePos(event);
-                 name = sessionStorage.getItem("name");
-                 stompClient.send("/app/"+name, {}, JSON.stringify(point));
-            });
+        var name = (sessionStorage.getItem("name"))
+        if(! name.includes("Master")){
+            conectarCavnaParticipante(name)
+            setTimeout(()=>{apiclient.getMasterName(userConnected)},500)
+            var canvas = document.getElementById("myCanvas"),
+                context = canvas.getContext("2d");
+            //if PointerEvent is suppported by the browser:
+            if(window.PointerEvent) {
+                canvas.addEventListener("pointerdown", function(event){
+                    var point = mousePos(event);
+                    name = sessionStorage.getItem("name");
+                    stompClient.send("/app/"+name, {}, JSON.stringify(point));
+                });
+            }
+        }else{
+            conectarCavnaParticipante(sessionStorage.getItem("nombreParticipante"));
         }
+
     }
 
     return {
