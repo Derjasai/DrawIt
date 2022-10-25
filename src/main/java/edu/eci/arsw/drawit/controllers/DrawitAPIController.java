@@ -33,6 +33,17 @@ public class DrawitAPIController {
 
     }
 
+    @RequestMapping(path = "/partidaIniciada/paritdaIniciada" , method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getIsPartidaIniciada() {
+        try {
+            boolean isPartidaIniciada = ds.getIsPartidaIniciada();
+            Gson gson = new Gson();
+            return new ResponseEntity<>(gson.toJson(isPartidaIniciada), HttpStatus.ACCEPTED);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error",HttpStatus.NOT_FOUND);
+        }
+    }
+
     @RequestMapping(path = "/{name}" , method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> setGanador(@PathVariable String name) {
         try {

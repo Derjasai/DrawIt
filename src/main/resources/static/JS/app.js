@@ -31,6 +31,11 @@ var app = (function (){
         }
     }
 
+    var iniciarPartida = function (){
+        alert("Send nudes")
+        stompClient.send("/app/iniciarPartda", {});
+    }
+
     var getUsers = function (name){
         connectAndSubscribe(sessionStorage.getItem("name"));
         paintUsers()
@@ -182,6 +187,11 @@ var app = (function (){
         getPointsUser(nombreParticipante);
     }
 
+    var getPartidaIniciada = function (data){
+        sessionStorage.setItem("partidaIniciada", data);
+        alert(sessionStorage.getItem("partidaIniciada"))
+    }
+
     var init = function (){
 
         var name = (sessionStorage.getItem("name"))
@@ -192,11 +202,15 @@ var app = (function (){
                 context = canvas.getContext("2d");
             //if PointerEvent is suppported by the browser:
             if(window.PointerEvent) {
-                canvas.addEventListener("pointerdown", function(event){
-                    var point = mousePos(event);
-                    name = sessionStorage.getItem("name");
-                    stompClient.send("/app/"+name, {}, JSON.stringify(point));
-                });
+                apiclient.getIsPartidaIniciada(getPartidaIniciada)
+                if(sessionStorage.getItem("partidaIniciada")){
+                    canvas.addEventListener("pointerdown", function(event){
+                        var point = mousePos(event);
+                        name = sessionStorage.getItem("name");
+                        stompClient.send("/app/"+name, {}, JSON.stringify(point));
+                    });
+                }
+
             }
         }else{
             conectarCavnaParticipante(sessionStorage.getItem("userName"));
@@ -213,6 +227,7 @@ var app = (function (){
         reDirectCanvaParticipante   : reDirectCanvaParticipante,
         openWin: openWin,
         publicarPregunta: publicarPregunta,
+        iniciarPartida: iniciarPartida,
         test: function (){
         }
     }

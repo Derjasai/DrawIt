@@ -52,4 +52,8 @@ public class DrawitServices {
     public void setGanador(String name){
         dip.setGanador(name);
     }
+
+    public void iniciarPartida(){dip.iniciarPartida();}
+
+    public Boolean getIsPartidaIniciada(){return dip.getIsPartidaIniciada();}
 }

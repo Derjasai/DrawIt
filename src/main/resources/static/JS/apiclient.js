@@ -13,6 +13,19 @@ var apiclient = (function (){
 
     };
 
+    var getIsPartidaIniciada = function (callback){
+        $.ajax({
+            type: "GET",
+            url: "drawit/partidaIniciada/paritdaIniciada",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data){
+                callback(data);
+            }
+        })
+
+    };
+
     var addUser = function (name){
         var data = JSON.stringify({name:name});
         return new Promise(function (resolve, reject){
@@ -64,7 +77,8 @@ var apiclient = (function (){
         addUser: addUser,
         getAllUsers: getAllUsers,
         getMasterName: getMasterName,
-        setGanador: setGanador
+        setGanador: setGanador,
+        getIsPartidaIniciada: getIsPartidaIniciada
         }
     }
 )();

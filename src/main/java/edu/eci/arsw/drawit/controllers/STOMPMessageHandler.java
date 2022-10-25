@@ -36,4 +36,9 @@ public class STOMPMessageHandler {
         msgt.convertAndSend("/topic/"+name,"delete");
         ds.delteAllPointsUser(name);
     }
+
+    @MessageMapping("/iniciarPartda")
+    public synchronized void iniciarPAtdia() throws Exception{
+        ds.iniciarPartida();
+    }
 }
