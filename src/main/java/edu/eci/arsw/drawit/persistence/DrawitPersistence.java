@@ -25,4 +25,8 @@ public interface DrawitPersistence {
     public void delteAllPointsUser(String name);
 
     public  User getMasterName();
+
+    public User getGanador();
+
+    public void setGanador(String name);
 }

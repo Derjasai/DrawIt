@@ -44,4 +44,12 @@ public class DrawitServices {
     public User getMasterName(){
         return dip.getMasterName();
     }
+
+    public User getGanador(){
+        return dip.getGanador();
+    }
+
+    public void setGanador(String name){
+        dip.setGanador(name);
+    }
 }

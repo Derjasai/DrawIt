@@ -29,8 +29,18 @@ public class DrawitAPIController {
             return new ResponseEntity<>("Error",HttpStatus.NOT_FOUND);
         }
         Gson gson = new Gson();
-        System.out.println(master.getName());
         return new ResponseEntity<>(gson.toJson(master), HttpStatus.ACCEPTED);
+
+    }
+
+    @RequestMapping(path = "/{name}" , method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> setGanador(@PathVariable String name) {
+        try {
+            ds.setGanador(name);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error",HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(HttpStatus.CREATED);
 
     }
 

@@ -43,13 +43,33 @@ var app = (function (){
                 "            <li><a  >"+ element.name +"</a>\n" +
                 "                <ul>\n" +
                 "                    <li><a onclick='app.reDirectCanvaParticipante(\""+ element.name +"\")'>Observar Pantalla</a></li>\n" +
-                "                    <li><a class=\"btn-abrir-win\" id=\"btn-abrir-win\">Escoger Ganador</a></li>\n" +
+                "                    <li><a class=\"btn-abrir-win\" id=\"btn-abrir-win\" onclick='app.openWin(\""+element.name+"\")'>Escoger Ganador</a></li>\n" +
                 "                    <li><a >Expulsar</a></li>\n" +
                 "                </ul>\n" +
                 "            </li>\n" +
                 "        </ul>\n" +
                 "    </div>" + "</td>"));
         });
+    }
+
+    var openWin = function (nombreGanador){
+        apiclient.setGanador(nombreGanador).then(()=>{
+            apiclient.getAllUsers(notificarGanador);
+        })
+    }
+
+
+    var notificarGanador = function (data){
+        var ganador = "";
+        data.forEach((element) => {
+            if(element.isGanador){
+                ganador = element.name;
+            }
+        })
+
+        data.forEach((element) => {
+            stompClient.send("/topic/"+element.name, {}, "seleccionarGanador "+ganador);
+        })
     }
 
     var reDirectCanvaParticipante = function (namePaticipante){
@@ -73,6 +93,13 @@ var app = (function (){
                     clearCanvas()
                 }else if(eventbody.body === "actualizarUsuarios"){
                     paintUsers();
+                }else if(eventbody.body.includes("seleccionarGanador")){
+                    if(! name.includes("Master")){
+                        var overgame = document.getElementById('overgame');
+                        overgame.classList.add('activewin');
+                        var list = eventbody.body.split(" ")
+                        $("#ganador").append(list[1])
+                    }
                 }
                 else{
                     var point = JSON.parse(eventbody.body);
@@ -156,6 +183,7 @@ var app = (function (){
         getUsers: getUsers,
         createMaster: createMaster,
         reDirectCanvaParticipante   : reDirectCanvaParticipante,
+        openWin: openWin,
         test: function (){
         }
     }

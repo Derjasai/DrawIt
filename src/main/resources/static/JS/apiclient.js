@@ -47,11 +47,24 @@ var apiclient = (function (){
                 callback(data)}});
     };
 
+        var setGanador = function (name){
+            return new Promise(function (resolve, reject){
+                resolve(
+                    $.ajax({
+                        url: "drawit/"+name,
+                        type: "PUT",
+                        contentType: "application/json"
+                    })
+                )
+            })
+        };
+
     return{
         getUser: getUser,
         addUser: addUser,
         getAllUsers: getAllUsers,
-        getMasterName: getMasterName
+        getMasterName: getMasterName,
+        setGanador: setGanador
         }
     }
 )();

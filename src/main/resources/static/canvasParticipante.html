@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CSS/spantallaMaster.css">
+
     <script src="/webjars/jquery/jquery.min.js"></script>
     <script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
 
     <title>Canvas</title>
-    <script src="JS/app.js"></script>
-    <script src="JS/apiclient.js"></script>
+
 </head>
 <body onload="app.init()">
 <div class="canva">
@@ -18,8 +19,21 @@
     <button onclick="app.deletePoints()">Clear Canvas</button>
 </div>
 <div>
-    <button onclick="app.mensaje()">Lista</button>
+    <button onclick="app.mensaje()">Listas</button>
 </div>
 
+
+<div class="overgame" id="overgame">
+    <div class="winner" id="winner">
+        <h3>Juego terminado ha ganado:</h3>
+        <h3 id="ganador"></h3>
+        <h4>Felicidades!!!</h4>
+    </div>
+</div>
+
+
+
+<script src="JS/app.js"></script>
+<script src="JS/apiclient.js"></script>
 </body>
 </html>

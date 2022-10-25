@@ -33,7 +33,6 @@ public class InMemoryDrawitPersistence implements DrawitPersistence {
 
     @Override
     public User getUser(String name) throws DrawitPersistenceException{
-        Set<String> keys = participantes.keySet();
         if(!participantes.containsKey(name)){
             throw new DrawitPersistenceException(DrawitPersistenceException.NO_USER);
         }
@@ -69,6 +68,25 @@ public class InMemoryDrawitPersistence implements DrawitPersistence {
     @Override
     public User getMasterName() {
         return masterName;
+    }
+
+    @Override
+    public User getGanador() {
+        Set<User> users = new HashSet<>();
+        Set<String> keys = participantes.keySet();
+        User ganador = null;
+
+        for (String name: keys){
+            if(participantes.get(name).isGanador()){
+                ganador = participantes.get(name);
+            }
+        }
+        return ganador;
+    }
+
+    @Override
+    public void setGanador(String name) {
+        participantes.get(name).setGanador(true);
     }
 
 
