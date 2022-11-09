@@ -21,6 +21,30 @@ public class DrawitAPIController {
     @Autowired
     DrawitServices ds = null;
 
+    @RequestMapping(path = "/masterName/masterName" , method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getMasterName() {
+        User master = null;
+        try {
+            master = ds.getMasterName();
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error",HttpStatus.NOT_FOUND);
+        }
+        Gson gson = new Gson();
+        return new ResponseEntity<>(gson.toJson(master), HttpStatus.ACCEPTED);
+
+    }
+
+    @RequestMapping(path = "/{name}" , method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> setGanador(@PathVariable String name) {
+        try {
+            ds.setGanador(name);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error",HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(HttpStatus.CREATED);
+
+    }
+
     @RequestMapping(path = "/{name}" , method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getBlueprintByAuthorName(@PathVariable String name) {
         User user = null;
@@ -34,8 +58,10 @@ public class DrawitAPIController {
 
     }
 
+
+
     @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> postBlueprint(@RequestBody User user){
+    public ResponseEntity<?> postUser(@RequestBody User user){
         try {
             ds.addNewUser(user);
             //registrar dato

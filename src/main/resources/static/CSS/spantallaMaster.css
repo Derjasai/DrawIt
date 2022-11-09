@@ -31,13 +31,13 @@ ul, ol{list-style: none;}
 
 .nav > li{float: left;}
 
-.nav li a{background-color: #001a2f;
-           color: White;
+.nav li a{background-color: #FDFEFE;
+           color: Black;
            text-decoration: none;
            padding: 10px 12px;
            display: block;}
 
-.nav li a:hover{background-color: #434343;}
+.nav li a:hover{background-color: #D5F5E3;}
 
 .nav li ul{display: none;
            position: absolute;
