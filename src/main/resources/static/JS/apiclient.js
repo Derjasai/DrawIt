@@ -37,10 +37,25 @@ var apiclient = (function (){
                 callback(data)}});
     };
 
+    var savePista = function(id, contenido, tomado){
+        var data = JSON.stringfy({id:id, contenido:contenido, tomado:tomado});
+        return new Promise(function(resolve, reject){
+        resolve(
+            $.ajax({
+                type:"POST",
+                url: "drawit",
+                contentType; "application/json; charset=utf-8",
+                dataType: "jason",
+                data:data
+            })
+        )})
+    };
+
     return{
         getUser: getUser,
         addUser: addUser,
         getAllUsers: getAllUsers,
+        savePista: savePista,
         }
     }
 )();

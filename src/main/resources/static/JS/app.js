@@ -120,6 +120,12 @@ var app = (function (){
         }
     }
 
+    var savePista = function (){
+        var contenido = document.getElementById("pistaContent");
+        var tomado = false;
+        apiclient.savePista(contenido, tomado);
+    }
+
     return {
         createUser: createUser,
         init:init,
