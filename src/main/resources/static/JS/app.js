@@ -6,7 +6,7 @@ var app = (function (){
     function createUser(){
         sessionStorage.setItem("name",$("#userName").val());
         apiclient.addUser($("#userName").val()).then(()=>{
-            window.location = "participante.html";
+            window.location = "player.html";
         })
             .catch(error => console.log(error))
     }
@@ -53,7 +53,7 @@ var app = (function (){
     }
 
     var reDirectCanvaParticipante = function (namePaticipante){
-        window.location="participante.html"
+        window.location="player.html"
         sessionStorage.setItem("userName", namePaticipante);
     }
 
