@@ -37,6 +37,39 @@ var apiclient = (function (){
                 callback(data)}});
     };
 
+    var getMasterName = function(callback){
+        $.ajax({
+            type: "GET",
+            url: "drawit/masterName/masterName",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(data){
+                callback(data)}});
+    };
+
+    var cleanParticipantes = function (){
+        return new Promise(function(resolve,reject){
+            resolve(
+                $.ajax({
+                    url: "drawit/clean",
+                    type: 'DELETE'
+                })
+            )
+        })
+    };
+
+    var setGanador = function (name){
+        return new Promise(function (resolve, reject){
+            resolve(
+                $.ajax({
+                    url: "drawit/"+name,
+                    type: "PUT",
+                    contentType: "application/json"
+                })
+            )
+        })
+    };
+
     var savePista = function(id, contenido, tomado){
         var data = JSON.stringfy({id:id, contenido:contenido, tomado:tomado});
         return new Promise(function(resolve, reject){
@@ -55,6 +88,9 @@ var apiclient = (function (){
         getUser: getUser,
         addUser: addUser,
         getAllUsers: getAllUsers,
+        getMasterName: getMasterName,
+        setGanador: setGanador,
+        cleanParticipantes: cleanParticipantes,
         savePista: savePista,
         }
     }

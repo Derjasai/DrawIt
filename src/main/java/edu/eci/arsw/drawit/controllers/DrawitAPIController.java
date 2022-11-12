@@ -45,6 +45,18 @@ public class DrawitAPIController {
 
     }
 
+    @RequestMapping(path= "/clean", method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteParticipantes() {
+        try {
+            System.out.println("WOli");
+            ds.deleteParticipantes();
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(HttpStatus.CREATED);
+
+    }
+
     @RequestMapping(path = "/{name}" , method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getBlueprintByAuthorName(@PathVariable String name) {
         User user = null;

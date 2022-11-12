@@ -42,6 +42,20 @@ public class DrawitServices {
         dip.delteAllPointsUser(name);
     }
 
+    public User getMasterName(){
+        return dip.getMasterName();
+    }
+
+    public User getGanador(){
+        return dip.getGanador();
+    }
+
+    public void setGanador(String name){
+        dip.setGanador(name);
+    }
+
+    public void deleteParticipantes(){dip.deleteParticipantes();}
+
     public void addNewPista(Pista pista) throws DrawitPersistenceException{
         dip.savePista(pista);
     }

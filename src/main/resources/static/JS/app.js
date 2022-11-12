@@ -27,7 +27,7 @@ var app = (function (){
             })
                 .catch(error => console.log(error))
         }else {
-            alert("agrege un nombre valido porfavor")
+            alert("agregue un nombre valido por favor")
         }
     }
 
@@ -78,6 +78,8 @@ var app = (function (){
     var openWin = function (nombreGanador){
         apiclient.setGanador(nombreGanador).then(()=>{
             apiclient.getAllUsers(notificarGanador);
+            window.location="index.html"
+            apiclient.cleanParticipantes();
         })
     }
 
@@ -219,6 +221,7 @@ var app = (function (){
         reDirectCanvaParticipante   : reDirectCanvaParticipante,
         openWin: openWin,
         publicarPregunta: publicarPregunta,
+        savePista: savePista,
         test: function (){
         }
     }

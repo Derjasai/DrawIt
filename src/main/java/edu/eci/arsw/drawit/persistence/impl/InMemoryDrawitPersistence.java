@@ -15,6 +15,8 @@ public class InMemoryDrawitPersistence implements DrawitPersistence {
 
     private final Map<String,User> participantes = new ConcurrentHashMap<>();
 
+    private User masterName = null;
+
     private Pista nuevaPista = new Pista();
 
     public InMemoryDrawitPersistence(){
@@ -24,7 +26,12 @@ public class InMemoryDrawitPersistence implements DrawitPersistence {
     @Override
     public void saveUser(User user) {
         if(!participantes.containsKey(user.getName())){
-            participantes.put(user.getName(), user);
+            if(user.getName().contains("Master")){
+                masterName = user;
+            }else{
+                participantes.put(user.getName(), user);
+            }
+
         }
     }
 
@@ -61,6 +68,35 @@ public class InMemoryDrawitPersistence implements DrawitPersistence {
     @Override
     public void delteAllPointsUser(String name) {
         participantes.get(name).deletePoints();
+    }
+
+    @Override
+    public User getMasterName() {
+        return masterName;
+    }
+
+    @Override
+    public User getGanador() {
+        Set<User> users = new HashSet<>();
+        Set<String> keys = participantes.keySet();
+        User ganador = null;
+
+        for (String name: keys){
+            if(participantes.get(name).isGanador()){
+                ganador = participantes.get(name);
+            }
+        }
+        return ganador;
+    }
+
+    @Override
+    public void setGanador(String name) {
+        participantes.get(name).setGanador(true);
+    }
+
+    @Override
+    public void deleteParticipantes() {
+        participantes.clear();
     }
 
     @Override
