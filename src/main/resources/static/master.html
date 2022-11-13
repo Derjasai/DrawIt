@@ -29,13 +29,12 @@
 
 </div>
 <div class="canva-center">
+
     <br>
 
     <div class="ask">
         <div class="input-group">
             <div class="form-floating mb-3">
-
-
                 <input type="email" class="form-control" id="pregunta" placeholder="name@example.com">
                 <label for="pregunta">Digitar pregunta</label>
                 <button class="btn btn-outline-success" type="button" onclick="app.publicarPregunta()">Publicar pregunta</button>
@@ -44,6 +43,8 @@
             <button type="button" class="btn btn-outline-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Publicar Pista
             </button>
+
+            <button class="btn btn-outline-success" type="button" onclick="app.redirect()">Iniciar</button>
 
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -59,15 +60,12 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Salir</button>
-                            <button class="btn btn-primary">Iniciar</button>
+                            <button class="btn btn-primary" onclick="app.createUser()">Iniciar</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-        </div>
-        <div>
-            <button class="btn btn-primary" onclick="app.iniciarPartida()">Iniciar Partida</button>
         </div>
     </div>
     <br>

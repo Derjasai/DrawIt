@@ -9,7 +9,7 @@ var app = (function (){
         if(name !== ""){
             sessionStorage.setItem("name",name);
             apiclient.addUser(name).then(()=>{
-                window.location = "participante.html";
+                window.location = "loader.html";
             })
                 .catch(error => console.log(error))
         }else{
@@ -31,9 +31,14 @@ var app = (function (){
         }
     }
 
-    var iniciarPartida = function (){
-        alert("Send nudes")
-        stompClient.send("/app/iniciarPartda", {});
+    var redirect = function (){
+            apiclient.getAllUsers(redirectCanva);
+    }
+
+    var redirectCanva = function (data){
+        data.forEach((element) => {
+             stompClient.send("/topic/"+element.name, {}, "redirectIniciar"+element.name);
+        })
     }
 
     var getUsers = function (name){
@@ -73,6 +78,7 @@ var app = (function (){
         apiclient.getAllUsers(actualizarPreguntaParticiapantes);
     }
 
+
     var actualizarPreguntaParticiapantes = function (data){
         var pregunta = $("#pregunta").val();
         data.forEach((element) => {
@@ -83,6 +89,8 @@ var app = (function (){
     var openWin = function (nombreGanador){
         apiclient.setGanador(nombreGanador).then(()=>{
             apiclient.getAllUsers(notificarGanador);
+            window.location="index.html"
+            apiclient.cleanParticipantes();
         })
     }
 
@@ -98,6 +106,7 @@ var app = (function (){
         data.forEach((element) => {
             stompClient.send("/topic/"+element.name, {}, "seleccionarGanador "+ganador);
         })
+
     }
 
     var reDirectCanvaParticipante = function (namePaticipante){
@@ -133,6 +142,8 @@ var app = (function (){
                     var list = eventbody.body.split(":")
                     alert("¡Se actualizó la pregunta!")
                     document.getElementById("pregunta").value = list[1];
+                }else if(eventbody.body.includes("redirectIniciar")){
+                    reDirectCanvaParticipante(element.name);
                 }
                 else{
                     var point = JSON.parse(eventbody.body);
@@ -187,11 +198,6 @@ var app = (function (){
         getPointsUser(nombreParticipante);
     }
 
-    var getPartidaIniciada = function (data){
-        sessionStorage.setItem("partidaIniciada", data);
-        alert(sessionStorage.getItem("partidaIniciada"))
-    }
-
     var init = function (){
 
         var name = (sessionStorage.getItem("name"))
@@ -202,15 +208,11 @@ var app = (function (){
                 context = canvas.getContext("2d");
             //if PointerEvent is suppported by the browser:
             if(window.PointerEvent) {
-                apiclient.getIsPartidaIniciada(getPartidaIniciada)
-                if(sessionStorage.getItem("partidaIniciada")){
-                    canvas.addEventListener("pointerdown", function(event){
-                        var point = mousePos(event);
-                        name = sessionStorage.getItem("name");
-                        stompClient.send("/app/"+name, {}, JSON.stringify(point));
-                    });
-                }
-
+                canvas.addEventListener("pointerdown", function(event){
+                    var point = mousePos(event);
+                    name = sessionStorage.getItem("name");
+                    stompClient.send("/app/"+name, {}, JSON.stringify(point));
+                });
             }
         }else{
             conectarCavnaParticipante(sessionStorage.getItem("userName"));
@@ -227,7 +229,6 @@ var app = (function (){
         reDirectCanvaParticipante   : reDirectCanvaParticipante,
         openWin: openWin,
         publicarPregunta: publicarPregunta,
-        iniciarPartida: iniciarPartida,
         test: function (){
         }
     }

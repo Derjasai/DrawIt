@@ -8,17 +8,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 @Service
 public class InMemoryDrawitPersistence implements DrawitPersistence {
 
     private final Map<String,User> participantes = new ConcurrentHashMap<>();
     private User masterName = null;
-    private AtomicBoolean isPartidaIniciada;
 
     public InMemoryDrawitPersistence(){
-        isPartidaIniciada = new AtomicBoolean(false);
     }
 
 
@@ -93,14 +90,8 @@ public class InMemoryDrawitPersistence implements DrawitPersistence {
     }
 
     @Override
-    public void iniciarPartida() {
-        System.out.println("Wuenas");
-        isPartidaIniciada.set(true);
-    }
-
-    @Override
-    public boolean getIsPartidaIniciada() {
-        return isPartidaIniciada.get();
+    public void deleteParticipantes() {
+        participantes.clear();
     }
 
 

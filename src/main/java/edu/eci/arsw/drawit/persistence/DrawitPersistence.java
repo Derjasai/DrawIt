@@ -5,7 +5,9 @@ import edu.eci.arsw.drawit.model.User;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
+import java.util.zip.DataFormatException;
 
 @Service
 public interface DrawitPersistence {
@@ -28,7 +30,5 @@ public interface DrawitPersistence {
 
     public void setGanador(String name);
 
-    public void iniciarPartida();
-
-    public boolean getIsPartidaIniciada();
+    public void deleteParticipantes();
 }
