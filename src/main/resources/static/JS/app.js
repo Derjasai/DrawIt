@@ -231,6 +231,7 @@ var app = (function (){
         reDirectCanvaParticipante   : reDirectCanvaParticipante,
         openWin: openWin,
         publicarPregunta: publicarPregunta,
+        enviarPista: enviarPista,
         test: function (){
         }
     }
