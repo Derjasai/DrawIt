@@ -32,15 +32,19 @@ var app = (function (){
     }
 
     var redirectIniciar = function (){
-            apiclient.getAllUsers(redirectCanva);
+        apiclient.addUser(" ");
+        /*apiclient.getAllUsers(redirectCanva);*/
+
     }
 
+    /*
     var redirectCanva = function (data){
         data.forEach((element) => {
-             window.location="participante.html"
-             sessionStorage.setItem("userName", element.name);
+            sessionStorage.setItem("userName", element.name);
+            location.href="participante.html"
+
         })
-    }
+    }*/
 
     var getUsers = function (name){
         connectAndSubscribe(sessionStorage.getItem("name"));
@@ -58,7 +62,11 @@ var app = (function (){
                 name : elemento.name
             }
         });
+
         datanew.map((element) => {
+            if (element.name == " "){
+                return
+            }
             $("#participantesTable > tbody:last").append($(
                 "<div >\n" +
                 "<br><br>"+
