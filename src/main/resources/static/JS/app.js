@@ -75,6 +75,17 @@ var app = (function (){
         })
     }
 
+    var enviarPista = function (){
+            apiclient.getAllUsers(enviarPistaParticiapantes);
+        }
+
+    var enviarPistaParticiapantes = function (data){
+        var pista = $("#pista").val();
+        data.forEach((element) => {
+            stompClient.send("/topic/"+element.name, {}, "enviarPista:" + pista);
+        })
+    }
+
     var openWin = function (nombreGanador){
         apiclient.setGanador(nombreGanador).then(()=>{
             apiclient.getAllUsers(notificarGanador);
@@ -131,8 +142,12 @@ var app = (function (){
                     var list = eventbody.body.split(":")
                     alert("¡Se actualizó la pregunta!")
                     document.getElementById("pregunta").value = list[1];
-                }
-                else{
+                }else if(eventbody.body.includes("enviarPista")){
+
+                     var list = eventbody.body.split(":")
+                     alert("¡Se habilito una pista!")
+                     document.getElementById("pista").value = list[1];
+                 }else{
                     var point = JSON.parse(eventbody.body);
                     drawPointCanvas(point);
                 }

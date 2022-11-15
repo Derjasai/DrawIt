@@ -37,6 +37,7 @@
                 <input type="email" class="form-control" id="pregunta" placeholder="name@example.com">
                 <label for="pregunta">Digitar pregunta</label>
                 <button class="btn btn-outline-success" type="button" onclick="app.publicarPregunta()">Publicar pregunta</button>
+
             </div>
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-outline-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -52,12 +53,12 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="floatingInputPista" placeholder="name@example.com">
-                            <label for="floatingInputPista">Digitar pista</label>
+                            <input type="email" class="form-control" id="pistart" placeholder="name@example.com">
+                            <label for="pistart">Digitar pista</label>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Salir</button>
-                            <button class="btn btn-primary" onclick="app.createUser()">Iniciar</button>
+                            <button class="btn btn-primary" onclick="app.enviarPista()">Enviar</button>
                         </div>
                     </div>
                 </div>
