@@ -70,13 +70,27 @@ var apiclient = (function (){
             })
         };
 
+    var savePista = function(id, contenido, tomado){
+        var data = JSON.stringify({contenido:contenido, tomado:tomado});
+        return new Promise(function(resolve, reject){
+        resolve(
+            $.ajax({
+                type:"POST",
+                url: "drawit/pista",
+                contentType: "application/json",
+                data:data
+            })
+        )})
+    };
+
     return{
         getUser: getUser,
         addUser: addUser,
         getAllUsers: getAllUsers,
         getMasterName: getMasterName,
         setGanador: setGanador,
-        cleanParticipantes: cleanParticipantes
+        cleanParticipantes: cleanParticipantes,
+        savePista: savePista
         }
     }
 )();

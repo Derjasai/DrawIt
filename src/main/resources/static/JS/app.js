@@ -207,6 +207,12 @@ var app = (function (){
 
     }
 
+    var guardarPista = function (){
+        var contenido = document.getElementById("pistaContent");
+        var tomado = false;
+        apiclient.savePista(contenido, tomado);
+    }
+
     return {
         createUser: createUser,
         init:init,
@@ -216,6 +222,7 @@ var app = (function (){
         reDirectCanvaParticipante   : reDirectCanvaParticipante,
         openWin: openWin,
         publicarPregunta: publicarPregunta,
+        guardarPista: guardarPista,
         test: function (){
         }
     }

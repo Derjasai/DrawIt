@@ -1,5 +1,6 @@
 package edu.eci.arsw.drawit.services;
 
+import edu.eci.arsw.drawit.model.Pista;
 import edu.eci.arsw.drawit.model.Point;
 import edu.eci.arsw.drawit.model.User;
 import edu.eci.arsw.drawit.persistence.DrawitPersistence;
@@ -54,4 +55,8 @@ public class DrawitServices {
     }
 
     public void deleteParticipantes(){dip.deleteParticipantes();}
+
+    public void addNewPista(Pista pista) throws DrawitPersistenceException{
+        dip.savePista(pista);
+    }
 }
