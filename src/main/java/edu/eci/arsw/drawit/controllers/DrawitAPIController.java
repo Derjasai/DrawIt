@@ -99,6 +99,7 @@ public class DrawitAPIController {
     @RequestMapping(path = "/pista", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> guardarPista(@RequestBody Pista pista){
         try {
+            System.out.println(pista.getTomada() + " "+ pista.getContenido());
             ds.addNewPista(pista);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (Exception ex){

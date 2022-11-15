@@ -208,8 +208,9 @@ var app = (function (){
     }
 
     var guardarPista = function (){
-        var contenido = document.getElementById("pistaContent");
-        var tomado = false;
+        var contenido = document.getElementById("floatingInputPista").value;
+        console.log(contenido);
+        var tomado = true;
         apiclient.savePista(contenido, tomado);
     }
 

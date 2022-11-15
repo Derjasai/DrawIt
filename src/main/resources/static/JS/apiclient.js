@@ -70,7 +70,7 @@ var apiclient = (function (){
             })
         };
 
-    var savePista = function(id, contenido, tomado){
+    var savePista = function(contenido, tomado){
         var data = JSON.stringify({contenido:contenido, tomado:tomado});
         return new Promise(function(resolve, reject){
         resolve(
