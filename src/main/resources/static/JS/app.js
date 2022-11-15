@@ -84,6 +84,19 @@ var app = (function (){
         data.forEach((element) => {
             stompClient.send("/topic/"+element.name, {}, "enviarPista:" + pista);
         })
+
+    }
+
+    var quitarPista = function (){
+        apiclient.getAllUsers(quitarPistaParticiapantes);
+
+    }
+
+    var quitarPistaParticiapantes = function (data){
+
+        data.forEach((element) => {
+            stompClient.send("/topic/"+element.name, {}, "quitarPista:" + "La pista ya no esta disponible!");
+        })
     }
 
     var openWin = function (nombreGanador){
@@ -147,7 +160,12 @@ var app = (function (){
                      var list = eventbody.body.split(":")
                      alert("¡Se habilito una pista!")
                      document.getElementById("pista").value = list[1];
-                 }else{
+
+                 }else if(eventbody.body.includes("quitarPista")){
+
+                    var list = eventbody.body.split(":")
+                    document.getElementById("pista").value = list[1];
+                }else{
                     var point = JSON.parse(eventbody.body);
                     drawPointCanvas(point);
                 }
@@ -232,6 +250,7 @@ var app = (function (){
         openWin: openWin,
         publicarPregunta: publicarPregunta,
         enviarPista: enviarPista,
+        quitarPista: quitarPista,
         test: function (){
         }
     }
