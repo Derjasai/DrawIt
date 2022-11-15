@@ -31,13 +31,14 @@ var app = (function (){
         }
     }
 
-    var redirect = function (){
+    var redirectIniciar = function (){
             apiclient.getAllUsers(redirectCanva);
     }
 
     var redirectCanva = function (data){
         data.forEach((element) => {
-             stompClient.send("/topic/"+element.name, {}, "redirectIniciar"+element.name);
+             window.location="participante.html"
+             sessionStorage.setItem("userName", element.name);
         })
     }
 
@@ -85,6 +86,7 @@ var app = (function (){
             stompClient.send("/topic/"+element.name, {}, "actualizarPregunta:" + pregunta);
         })
     }
+
 
     var openWin = function (nombreGanador){
         apiclient.setGanador(nombreGanador).then(()=>{
@@ -142,8 +144,6 @@ var app = (function (){
                     var list = eventbody.body.split(":")
                     alert("¡Se actualizó la pregunta!")
                     document.getElementById("pregunta").value = list[1];
-                }else if(eventbody.body.includes("redirectIniciar")){
-                    reDirectCanvaParticipante(element.name);
                 }
                 else{
                     var point = JSON.parse(eventbody.body);
@@ -229,6 +229,7 @@ var app = (function (){
         reDirectCanvaParticipante   : reDirectCanvaParticipante,
         openWin: openWin,
         publicarPregunta: publicarPregunta,
+        redirectIniciar: redirectIniciar,
         test: function (){
         }
     }
