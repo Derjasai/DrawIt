@@ -27,7 +27,7 @@ var app = (function (){
             })
                 .catch(error => console.log(error))
         }else {
-            alert("agregue un nombre valido por favor")
+            alert("agrege un nombre valido porfavor")
         }
     }
 
@@ -95,6 +95,7 @@ var app = (function (){
         data.forEach((element) => {
             stompClient.send("/topic/"+element.name, {}, "seleccionarGanador "+ganador);
         })
+
     }
 
     var reDirectCanvaParticipante = function (namePaticipante){
@@ -206,9 +207,10 @@ var app = (function (){
 
     }
 
-    var savePista = function (){
-        var contenido = document.getElementById("pistaContent");
-        var tomado = false;
+    var guardarPista = function (){
+        var contenido = document.getElementById("floatingInputPista").value;
+        console.log(contenido);
+        var tomado = true;
         apiclient.savePista(contenido, tomado);
     }
 
@@ -221,7 +223,7 @@ var app = (function (){
         reDirectCanvaParticipante   : reDirectCanvaParticipante,
         openWin: openWin,
         publicarPregunta: publicarPregunta,
-        savePista: savePista,
+        guardarPista: guardarPista,
         test: function (){
         }
     }

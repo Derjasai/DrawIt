@@ -16,6 +16,7 @@ public class InMemoryDrawitPersistence implements DrawitPersistence {
     private final Map<String,User> participantes = new ConcurrentHashMap<>();
 
     private User masterName = null;
+    private Pista nuevaPista = new Pista();
 
     private Pista nuevaPista = new Pista();
 

@@ -96,12 +96,14 @@ public class DrawitAPIController {
         }
     }
 
-    @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(path = "/pista", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> guardarPista(@RequestBody Pista pista){
         try {
+            System.out.println(pista.getTomada() + " "+ pista.getContenido());
             ds.addNewPista(pista);
             return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (Exception ex){
+            Logger.getLogger(DrawitAPIController.class.getName()).log(Level.SEVERE, null, ex);
             return new ResponseEntity<>("No se ha podido crear la pista", HttpStatus.FORBIDDEN);
         }
     }

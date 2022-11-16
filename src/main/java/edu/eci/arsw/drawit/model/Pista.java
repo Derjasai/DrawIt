@@ -1,6 +1,7 @@
 package edu.eci.arsw.drawit.model;
 
 public class Pista {
+
     private String contenido;
     private boolean tomada;
 
