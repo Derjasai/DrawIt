@@ -69,6 +69,7 @@ var app = (function (){
     }
 
     var actualizarPreguntaParticiapantes = function (data){
+
         var pregunta = $("#pregunta").val();
         data.forEach((element) => {
             stompClient.send("/topic/"+element.name, {}, "actualizarPregunta:" + pregunta);
@@ -76,6 +77,7 @@ var app = (function (){
     }
 
     var enviarPista = function (){
+        //El usuario tenga un nuevo atributo que sea isfirst si es true retorna 87 y si flase  100
             apiclient.getAllUsers(enviarPistaParticiapantes);
         }
 
