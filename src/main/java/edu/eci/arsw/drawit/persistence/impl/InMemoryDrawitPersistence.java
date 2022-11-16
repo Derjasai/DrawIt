@@ -90,6 +90,25 @@ public class InMemoryDrawitPersistence implements DrawitPersistence {
     }
 
     @Override
+    public User getIsfirst() {
+        Set<User> users = new HashSet<>();
+        Set<String> keys = participantes.keySet();
+        User first = null;
+
+        for (String name: keys){
+            if(participantes.get(name).isIsfirst()){
+                first = participantes.get(name);
+            }
+        }
+        return first;
+    }
+
+    @Override
+    public void setIsfirst(String name, boolean isfirst) {
+        participantes.get(name).setIsfirst(isfirst);
+    }
+
+    @Override
     public void deleteParticipantes() {
         participantes.clear();
     }

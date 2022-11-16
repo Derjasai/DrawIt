@@ -5,6 +5,8 @@ import java.util.ArrayList;
 public class User {
 
     private String name;
+
+    private boolean isfirst=false;
     private ArrayList<Point> points = new ArrayList<>();
     private boolean isGanador = false;
 
@@ -44,5 +46,13 @@ public class User {
 
     public void setGanador(boolean ganador) {
         isGanador = ganador;
+    }
+
+    public boolean isIsfirst() {
+        return isfirst;
+    }
+
+    public void setIsfirst(boolean isfirst) {
+        this.isfirst = isfirst;
     }
 }

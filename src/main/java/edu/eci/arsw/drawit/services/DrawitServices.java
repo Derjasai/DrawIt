@@ -5,6 +5,7 @@ import edu.eci.arsw.drawit.model.User;
 import edu.eci.arsw.drawit.persistence.DrawitPersistence;
 import edu.eci.arsw.drawit.persistence.DrawitPersistenceException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -51,6 +52,14 @@ public class DrawitServices {
 
     public void setGanador(String name){
         dip.setGanador(name);
+    }
+
+    public User getIsfirst(){
+        return dip.getIsfirst();
+    }
+
+    public void setIsfirst(String name, boolean isfirst){
+        dip.setIsfirst(name, isfirst);
     }
 
     public void deleteParticipantes(){dip.deleteParticipantes();}

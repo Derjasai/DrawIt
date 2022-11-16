@@ -83,22 +83,35 @@ var app = (function (){
 
     var enviarPistaParticiapantes = function (data){
         var pista = $("#pista").val();
+
         data.forEach((element) => {
+            apiclient.setIsfirst(element.name, false);
             stompClient.send("/topic/"+element.name, {}, "enviarPista:" + pista);
         })
 
     }
 
-    var quitarPista = function (){
-        apiclient.getAllUsers(quitarPistaParticiapantes);
+    var bloquearPista = function (){
+        apiclient.getAllUsers(bloquearPistaParticiapantes);
 
     }
 
-    var quitarPistaParticiapantes = function (data){
-
+    var bloquearPistaParticiapantes = function (data){
+        var name = sessionStorage.getItem("name");
+        var disponible = true;
         data.forEach((element) => {
-            stompClient.send("/topic/"+element.name, {}, "quitarPista:" + "La pista ya no esta disponible!");
+            if(element.isfirst){
+
+                disponible=false;
+            }
+            //stompClient.send("/topic/"+element.name, {}, "quitarPista:" + "La pista ya no esta disponible!");
         })
+        if (disponible){
+            apiclient.setIsfirst(name, true);
+        } else {
+            //stompClient.send("/topic/"+element.name, {}, "quitarPista:" + "La pista ya no esta disponible!");
+            document.getElementById("pista").value = "La pista ya no esta disponible!";
+        }
     }
 
     var openWin = function (nombreGanador){
@@ -252,7 +265,7 @@ var app = (function (){
         openWin: openWin,
         publicarPregunta: publicarPregunta,
         enviarPista: enviarPista,
-        quitarPista: quitarPista,
+        bloquearPista: bloquearPista,
         test: function (){
         }
     }

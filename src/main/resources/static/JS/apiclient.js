@@ -70,12 +70,25 @@ var apiclient = (function (){
             })
         };
 
+        var setIsfirst = function (name, isfirst){
+            return new Promise(function (resolve, reject){
+                resolve(
+                    $.ajax({
+                        url: "drawit/first/"+name+"/"+isfirst,
+                        type: "PUT",
+                        contentType: "application/json"
+                    })
+                )
+            })
+        };
+
     return{
         getUser: getUser,
         addUser: addUser,
         getAllUsers: getAllUsers,
         getMasterName: getMasterName,
         setGanador: setGanador,
+        setIsfirst: setIsfirst,
         cleanParticipantes: cleanParticipantes
         }
     }

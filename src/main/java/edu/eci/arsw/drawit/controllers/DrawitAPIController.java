@@ -44,6 +44,17 @@ public class DrawitAPIController {
 
     }
 
+    @RequestMapping(path = "/first/{name}/{isfirst}" , method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> setIsfirst(@PathVariable String name, @PathVariable boolean isfirst) {
+        try {
+            ds.setIsfirst(name, isfirst);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error",HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(HttpStatus.CREATED);
+
+    }
+
     @RequestMapping(path= "/clean", method = RequestMethod.DELETE)
     public ResponseEntity<?> deleteParticipantes() {
         try {

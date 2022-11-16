@@ -30,5 +30,9 @@ public interface DrawitPersistence {
 
     public void setGanador(String name);
 
+    public User getIsfirst();
+
+    public void setIsfirst(String name, boolean isfirst);
+
     public void deleteParticipantes();
 }
