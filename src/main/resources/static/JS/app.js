@@ -108,13 +108,6 @@ var app = (function (){
         apiclient.getUser(nombreParticipante, drawAllPointsCanvas);
     }
 
-    function setContenidoPista(data){
-        document.getElementById("pista").value = data;
-    }
-
-    function getPista(){
-        apiclient.getPista(setContenidoPista);
-    }
 
     var connectAndSubscribe = function (name) {
         var socket = new SockJS('/stompendpoint');
@@ -139,8 +132,11 @@ var app = (function (){
                     var list = eventbody.body.split(":")
                     alert("¡Se actualizó la pregunta!")
                     document.getElementById("pregunta").value = list[1];
-                }else if(eventbody.body.includes("tomarPista")){
-                    alert("¡Se habilito una pista!")
+                }else if(eventbody.body.includes("publicarPista")){
+                    document.getElementById("botonPista").hidden=false;
+
+                }else if(eventbody.body.includes("tomadaPista")){
+                    document.getElementById("botonPista").hidden=true;
 
                 }
                 else{
@@ -220,16 +216,30 @@ var app = (function (){
 
     var publicarPistaParticiapantes = function (data){
         data.forEach((element) => {
-            stompClient.send("/topic/"+element.name, {}, "tomarPista");
+            stompClient.send("/topic/"+element.name, {}, "publicarPista");
         })
     }
 
     var guardarPista = function (){
         apiclient.getAllUsers(publicarPistaParticiapantes);
         var contenido = document.getElementById("floatingInputPista").value;
-        console.log(contenido);
         var tomado = true;
         apiclient.savePista(contenido, tomado);
+    }
+
+    function setContenidoPista(data){
+        document.getElementById("pista").value = data;
+    }
+
+    function getPista(){
+        apiclient.getPista(setContenidoPista);
+        apiclient.getAllUsers(tomadaPista);
+    }
+
+    function tomadaPista(data){
+        data.forEach((element) => {
+            stompClient.send("/topic/"+element.name, {}, "tomadaPista");
+        })
     }
 
     return {
