@@ -218,7 +218,14 @@ var app = (function (){
 
     }
 
+    var publicarPistaParticiapantes = function (data){
+        data.forEach((element) => {
+            stompClient.send("/topic/"+element.name, {}, "tomarPista");
+        })
+    }
+
     var guardarPista = function (){
+        apiclient.getAllUsers(publicarPistaParticiapantes);
         var contenido = document.getElementById("floatingInputPista").value;
         console.log(contenido);
         var tomado = true;
