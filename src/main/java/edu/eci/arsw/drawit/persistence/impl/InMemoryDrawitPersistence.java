@@ -103,6 +103,7 @@ public class InMemoryDrawitPersistence implements DrawitPersistence {
         nuevaPista = new Pista(pista.getContenido(), pista.getTomada());
     }
 
+    @Override
     public String tomarPista(){
         synchronized (nuevaPista){
 
