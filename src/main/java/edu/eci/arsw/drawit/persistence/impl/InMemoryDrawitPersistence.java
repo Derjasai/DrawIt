@@ -18,8 +18,6 @@ public class InMemoryDrawitPersistence implements DrawitPersistence {
     private User masterName = null;
     private Pista nuevaPista = new Pista();
 
-    private Pista nuevaPista = new Pista();
-
     public InMemoryDrawitPersistence(){
     }
 
@@ -103,6 +101,18 @@ public class InMemoryDrawitPersistence implements DrawitPersistence {
     @Override
     public void savePista(Pista pista) throws DrawitPersistenceException{
         nuevaPista = new Pista(pista.getContenido(), pista.getTomada());
+    }
+
+    public String tomarPista(){
+        synchronized (nuevaPista){
+
+            if (!nuevaPista.getTomada()){
+                nuevaPista.setTomada(true);
+                return nuevaPista.getContenido();
+            }else {
+                return "Pista no disponible!";
+            }
+        }
     }
 
 }

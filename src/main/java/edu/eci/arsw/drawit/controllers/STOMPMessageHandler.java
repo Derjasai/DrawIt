@@ -36,4 +36,7 @@ public class STOMPMessageHandler {
         msgt.convertAndSend("/topic/"+name,"delete");
         ds.delteAllPointsUser(name);
     }
+
+
+
 }

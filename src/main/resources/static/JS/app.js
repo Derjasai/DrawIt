@@ -108,6 +108,14 @@ var app = (function (){
         apiclient.getUser(nombreParticipante, drawAllPointsCanvas);
     }
 
+    function setContenidoPista(data){
+        document.getElementById("pista").value = data;
+    }
+
+    function getPista(){
+        apiclient.getPista(setContenidoPista);
+    }
+
     var connectAndSubscribe = function (name) {
         var socket = new SockJS('/stompendpoint');
         stompClient = Stomp.over(socket);
@@ -131,6 +139,9 @@ var app = (function (){
                     var list = eventbody.body.split(":")
                     alert("¡Se actualizó la pregunta!")
                     document.getElementById("pregunta").value = list[1];
+                }else if(eventbody.body.includes("tomarPista")){
+                    alert("¡Se habilito una pista!")
+
                 }
                 else{
                     var point = JSON.parse(eventbody.body);
@@ -224,6 +235,7 @@ var app = (function (){
         openWin: openWin,
         publicarPregunta: publicarPregunta,
         guardarPista: guardarPista,
+        getPista:getPista,
         test: function (){
         }
     }

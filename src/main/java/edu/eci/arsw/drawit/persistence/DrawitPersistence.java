@@ -34,4 +34,6 @@ public interface DrawitPersistence {
     public void deleteParticipantes();
 
     public void savePista(Pista pista) throws DrawitPersistenceException;
+
+    public String tomarPista();
 }

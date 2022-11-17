@@ -59,4 +59,9 @@ public class DrawitServices {
     public void addNewPista(Pista pista) throws DrawitPersistenceException{
         dip.savePista(pista);
     }
+
+    public String tomarPista(){
+        return dip.tomarPista();
+    }
+
 }

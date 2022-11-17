@@ -83,6 +83,16 @@ var apiclient = (function (){
         )})
     };
 
+    var getPista = function(callback){
+        $.ajax({
+            type: "GET",
+            url: "drawit/tomarpista",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(data){
+                callback(data)}});
+    };
+
     return{
         getUser: getUser,
         addUser: addUser,
@@ -90,7 +100,8 @@ var apiclient = (function (){
         getMasterName: getMasterName,
         setGanador: setGanador,
         cleanParticipantes: cleanParticipantes,
-        savePista: savePista
+        savePista: savePista,
+        getPista:getPista
         }
     }
 )();
