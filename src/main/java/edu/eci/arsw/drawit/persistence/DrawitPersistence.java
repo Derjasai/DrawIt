@@ -1,5 +1,6 @@
 package edu.eci.arsw.drawit.persistence;
 
+import edu.eci.arsw.drawit.model.Pista;
 import edu.eci.arsw.drawit.model.Point;
 import edu.eci.arsw.drawit.model.User;
 import org.springframework.stereotype.Service;
@@ -31,4 +32,8 @@ public interface DrawitPersistence {
     public void setGanador(String name);
 
     public void deleteParticipantes();
+
+    public void savePista(Pista pista) throws DrawitPersistenceException;
+
+    public String tomarPista();
 }

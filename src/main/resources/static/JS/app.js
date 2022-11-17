@@ -64,9 +64,6 @@ var app = (function (){
         });
 
         datanew.map((element) => {
-            if (element.name == " "){
-                return
-            }
             $("#participantesTable > tbody:last").append($(
                 "<div >\n" +
                 "<br><br>"+
@@ -129,6 +126,7 @@ var app = (function (){
         apiclient.getUser(nombreParticipante, drawAllPointsCanvas);
     }
 
+
     var connectAndSubscribe = function (name) {
         var socket = new SockJS('/stompendpoint');
         stompClient = Stomp.over(socket);
@@ -152,6 +150,12 @@ var app = (function (){
                     var list = eventbody.body.split(":")
                     alert("¡Se actualizó la pregunta!")
                     document.getElementById("pregunta").value = list[1];
+                }else if(eventbody.body.includes("publicarPista")){
+                    document.getElementById("botonPista").hidden=false;
+
+                }else if(eventbody.body.includes("tomadaPista")){
+                    document.getElementById("botonPista").hidden=true;
+
                 }
                 else{
                     var point = JSON.parse(eventbody.body);
@@ -228,6 +232,34 @@ var app = (function (){
 
     }
 
+    var publicarPistaParticiapantes = function (data){
+        data.forEach((element) => {
+            stompClient.send("/topic/"+element.name, {}, "publicarPista");
+        })
+    }
+
+    var guardarPista = function (){
+        apiclient.getAllUsers(publicarPistaParticiapantes);
+        var contenido = document.getElementById("floatingInputPista").value;
+        var tomado = true;
+        apiclient.savePista(contenido, tomado);
+    }
+
+    function setContenidoPista(data){
+        document.getElementById("pista").value = data;
+    }
+
+    function getPista(){
+        apiclient.getPista(setContenidoPista);
+        apiclient.getAllUsers(tomadaPista);
+    }
+
+    function tomadaPista(data){
+        data.forEach((element) => {
+            stompClient.send("/topic/"+element.name, {}, "tomadaPista");
+        })
+    }
+
     return {
         createUser: createUser,
         init:init,
@@ -237,6 +269,8 @@ var app = (function (){
         reDirectCanvaParticipante   : reDirectCanvaParticipante,
         openWin: openWin,
         publicarPregunta: publicarPregunta,
+        guardarPista: guardarPista,
+        getPista:getPista,
         redirectIniciar: redirectIniciar,
         test: function (){
         }

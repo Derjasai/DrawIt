@@ -1,6 +1,7 @@
 package edu.eci.arsw.drawit.controllers;
 
 import com.google.gson.Gson;
+import edu.eci.arsw.drawit.model.Pista;
 import edu.eci.arsw.drawit.model.User;
 import edu.eci.arsw.drawit.persistence.DrawitPersistenceException;
 import edu.eci.arsw.drawit.services.DrawitServices;
@@ -89,6 +90,28 @@ public class DrawitAPIController {
         try {
             Gson gson = new Gson();
             return new ResponseEntity<>(gson.toJson(ds.getAllUsers()), HttpStatus.ACCEPTED);
+        } catch (Exception e) {
+            Logger.getLogger(DrawitAPIController.class.getName()).log(Level.SEVERE, null, e);
+            return new ResponseEntity<>("Error al buscar a los participantes", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @RequestMapping(path = "/pista", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> guardarPista(@RequestBody Pista pista){
+        try {
+            ds.addNewPista(pista);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (Exception ex){
+            Logger.getLogger(DrawitAPIController.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>("No se ha podido crear la pista", HttpStatus.FORBIDDEN);
+        }
+    }
+
+    @RequestMapping(path = "/tomarpista", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> tomarPista() {
+        try {
+            Gson gson = new Gson();
+            return new ResponseEntity<>(gson.toJson(ds.tomarPista()), HttpStatus.ACCEPTED);
         } catch (Exception e) {
             Logger.getLogger(DrawitAPIController.class.getName()).log(Level.SEVERE, null, e);
             return new ResponseEntity<>("Error al buscar a los participantes", HttpStatus.NOT_FOUND);
