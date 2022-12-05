@@ -121,8 +121,10 @@ var app = (function (){
                 }else if(eventbody.body === "actualizarUsuarios"){
                     paintUsers();
                 }else if(eventbody.body.includes("seleccionarGanador")){
+                    console.log("hola")
+                    alert("Hola")
                     if(! name.includes("Master")){
-                        console.log("hola")
+
                         var overgame = document.getElementById('overgame');
                         overgame.classList.add('activewin');
                         var list = eventbody.body.split(" ")
