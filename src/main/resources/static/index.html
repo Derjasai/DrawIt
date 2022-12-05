@@ -22,7 +22,6 @@
 </head>
 
 <body>
-
 <div class="container">
     <img src="https://i.ibb.co/S50dwqP/icons8-setting-64.png" align="left" width="50" height="50">
     <img src="https://i.ibb.co/fxgZ7yy/icons8-male-user-50.png" align="right" width="50" height="50">
@@ -35,59 +34,16 @@
 
 <div class="abs-center">
 
+
     <div class="d-grid gap-2">
+        <label style="text-align: center">Dependiendo de la cuenta que use</label>
+        <label style="text-align: center">se le dirigirá a una sesión u otra</label>
 
-        <button onclick="signIn()">UwU</button>
-
-        <button type="button" class="btn btn-outline-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#masterModal">
-            Crear Sesión
+        <button onclick="signIn()" type="button" class="btn btn-outline-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#masterModal">
+            Login
         </button>
         <br><br>
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-outline-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Unirse a una Sesión
-        </button>
-
         <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Unirse a una partida</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Nombre: <input id="userName" type="text" name="nombre" placeholder="Nombre"></p>
-
-                        <p>Código: <input id="codigo" type="number" name="numero" placeholder="Código"></p>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Salir</button>
-                        <button class="btn btn-primary" onclick="app.createUser()">Iniciar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="modal fade" id="masterModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel2">Unirse a una partida</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Nombre: <input id="masterName" type="text" name="nombre" placeholder="Nombre"></p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Salir</button>
-                        <button class="btn btn-primary" onclick="app.createMaster()">Iniciar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
 </body>

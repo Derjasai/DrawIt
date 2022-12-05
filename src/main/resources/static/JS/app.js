@@ -3,8 +3,8 @@ var app = (function (){
 
     var stompClient = null;
 
-    function createUser(){
-        var name = $("#userName").val();
+    function createUser(user){
+        var name = user.split("@")[0];
 
         if(name !== ""){
             sessionStorage.setItem("name",name);
@@ -15,11 +15,10 @@ var app = (function (){
         }else{
             alert("agregue un nombre adecuado")
         }
-
     }
 
-    function createMaster(){
-        var name = $("#masterName").val() + " Master";
+    function createMaster(master){
+        var name = master + " Master";
         if(name !== ""){
             sessionStorage.setItem("name",name);
             apiclient.addUser(name).then(()=>{
@@ -48,6 +47,7 @@ var app = (function (){
             }
         });
         datanew.map((element) => {
+            console.log(element.name)
             $("#participantesTable > tbody:last").append($(
                 "<div >\n" +
                 "<br><br>"+
@@ -122,6 +122,7 @@ var app = (function (){
                     paintUsers();
                 }else if(eventbody.body.includes("seleccionarGanador")){
                     if(! name.includes("Master")){
+                        console.log("hola")
                         var overgame = document.getElementById('overgame');
                         overgame.classList.add('activewin');
                         var list = eventbody.body.split(" ")
