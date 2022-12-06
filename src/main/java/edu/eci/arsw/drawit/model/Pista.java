@@ -5,6 +5,7 @@ public class Pista {
     private String contenido;
     private boolean tomada;
 
+    /*Crea la lista*/
     public Pista(){}
 
     public Pista(String contenido, boolean tomada){
