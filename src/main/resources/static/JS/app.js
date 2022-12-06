@@ -7,7 +7,7 @@ var app = (function (){
         var name = user.split("@")[0];
 
         if(name !== ""){
-            localStorage.setItem("name",name);
+            sessionStorage.setItem("name",name);
             apiclient.addUser(name).then(()=>{
                 window.location = "participante.html";
             })
@@ -20,7 +20,7 @@ var app = (function (){
     function createMaster(master){
         var name = master + " Master";
         if(name !== ""){
-            localStorage.setItem("name",name);
+            sessionStorage.setItem("name",name);
             apiclient.addUser(name).then(()=>{
                 window.location = "master.html";
             })
@@ -31,7 +31,7 @@ var app = (function (){
     }
 
     var getUsers = function (name){
-        connectAndSubscribe(localStorage.getItem("name"));
+        connectAndSubscribe(sessionStorage.getItem("name"));
         paintUsers()
     }
 
@@ -100,7 +100,7 @@ var app = (function (){
 
     var reDirectCanvaParticipante = function (namePaticipante){
         window.location="participante.html"
-        localStorage.setItem("userName", namePaticipante);
+        sessionStorage.setItem("userName", namePaticipante);
     }
 
 
@@ -160,7 +160,7 @@ var app = (function (){
     }
 
     var deletePoints = function (){
-        stompClient.send("/app/delete."+localStorage.getItem("name"));
+        stompClient.send("/app/delete."+sessionStorage.getItem("name"));
     }
 
     var clearCanvas = function(){
@@ -197,7 +197,7 @@ var app = (function (){
 
     var init = function (){
 
-        var name = (localStorage.getItem("name"))
+        var name = (sessionStorage.getItem("name"))
         if(! name.includes("Master")){
             conectarCavnaParticipante(name)
             setTimeout(()=>{apiclient.getMasterName(userConnected)},500)
@@ -207,12 +207,12 @@ var app = (function (){
             if(window.PointerEvent) {
                 canvas.addEventListener("pointerdown", function(event){
                     var point = mousePos(event);
-                    name = localStorage.getItem("name");
+                    name = sessionStorage.getItem("name");
                     stompClient.send("/app/"+name, {}, JSON.stringify(point));
                 });
             }
         }else{
-            conectarCavnaParticipante(localStorage.getItem("userName"));
+            conectarCavnaParticipante(sessionStorage.getItem("userName"));
         }
 
     }
