@@ -17,4 +17,4 @@ https://drawit-nyd.herokuapp.com
 
 
 #### Link documento de arquitectura
-https://github.com/Derjasai/DrawIt.wiki.git
+https://github.com/Derjasai/DrawIt/wiki
