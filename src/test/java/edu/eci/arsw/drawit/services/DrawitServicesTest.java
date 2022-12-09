@@ -139,4 +139,11 @@ public class DrawitServicesTest {
         dp.savePista(pis);
         assertEquals("Buen juego", pis.getContenido());
     }
+
+    @Test
+    public void deberiaTomarPista() throws DrawitPersistenceException {
+        Pista pis = new Pista("Buen juego", false);
+        dp.savePista(pis);
+        assertEquals("Buen juego", dp.tomarPista());
+    }
 }
