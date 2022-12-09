@@ -82,4 +82,16 @@ public class DrawitServicesTest {
         dp.saveUser(usuario2);
         assertEquals(puntosPrueba2, dp.getPointsByUser("UsuarioPrueba2"));
     }
+
+    @Test
+    public void deberiaAgregarPuntoCorrectamente(){
+        ArrayList<Point> puntosPrueba  = new ArrayList();
+        usuario1 = new User("UsuarioPrueba", puntosPrueba);
+        dp.saveUser(usuario1);
+        Point p1 = new Point(1, 2);
+        puntosPrueba.add(p1);
+        usuario1 = new User("UsuarioPrueba", puntosPrueba);
+        dp.addPointToUser(usuario1);
+        assertEquals(puntosPrueba, dp.getPointsByUser("UsuarioPrueba"));
+    }
 }
