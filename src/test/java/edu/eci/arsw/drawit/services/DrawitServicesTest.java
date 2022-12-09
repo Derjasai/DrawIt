@@ -10,10 +10,11 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 public class DrawitServicesTest {
     InMemoryDrawitPersistence dp;
-    User usuario1, resultado;
+    User usuario1, usuario2, usuario3, resultado;
 
     @Before
     public void before(){
@@ -33,5 +34,18 @@ public class DrawitServicesTest {
         dp.saveUser(usuario1);
         resultado = dp.getUser("UsuarioPrueba");
         assertEquals(usuario1, resultado);
+    }
+
+    @Test
+    public void deberiaGuargarTodosUsuarios(){
+        ArrayList<Point> puntosPrueba  = new ArrayList();
+        usuario1 = new User("UsuarioPrueba1", puntosPrueba);
+        usuario2 = new User("UsuarioPrueba2", puntosPrueba);
+        usuario3 = new User("UsuarioPrueba3", puntosPrueba);
+        dp.saveUser(usuario1);
+        dp.saveUser(usuario2);
+        dp.saveUser(usuario3);
+        Set<User> usuarios = dp.getAllUsers();
+        assertEquals(usuarios.size(), 3);
     }
 }
