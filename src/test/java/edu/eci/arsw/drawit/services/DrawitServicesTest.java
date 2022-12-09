@@ -1,5 +1,6 @@
 package edu.eci.arsw.drawit.services;
 
+import edu.eci.arsw.drawit.model.Pista;
 import edu.eci.arsw.drawit.model.Point;
 import edu.eci.arsw.drawit.model.User;
 import edu.eci.arsw.drawit.persistence.DrawitPersistenceException;
@@ -108,5 +109,41 @@ public class DrawitServicesTest {
         dp.saveUser(usuario1);
         dp.delteAllPointsUser("UsuarioPrueba");
         assertEquals(0, dp.getUser("UsuarioPrueba").getPoints().size());
+    }
+
+    @Test
+    public void deberiaRetornarUsuarioGanador(){
+        ArrayList<Point> puntosPrueba  = new ArrayList();
+        usuario1 = new User("UsuarioPrueba", puntosPrueba);
+        dp.saveUser(usuario1);
+        dp.setGanador("UsuarioPrueba");
+        assertEquals(usuario1, dp.getGanador());
+    }
+
+    @Test
+    public void deberiaEliminarParticipante(){
+        ArrayList<Point> puntosPrueba  = new ArrayList();
+        usuario1 = new User("UsuarioPrueba1", puntosPrueba);
+        usuario2 = new User("UsuarioPrueba2", puntosPrueba);
+        usuario3 = new User("UsuarioPrueba3", puntosPrueba);
+        dp.saveUser(usuario1);
+        dp.saveUser(usuario2);
+        dp.saveUser(usuario3);
+        dp.deleteParticipantes();
+        assertEquals(0, dp.getAllUsers().size());
+    }
+
+    @Test
+    public void deberiaCrearPista() throws DrawitPersistenceException {
+        Pista pis = new Pista("Buen juego", false);
+        dp.savePista(pis);
+        assertEquals("Buen juego", pis.getContenido());
+    }
+
+    @Test
+    public void deberiaTomarPista() throws DrawitPersistenceException {
+        Pista pis = new Pista("Buen juego", false);
+        dp.savePista(pis);
+        assertEquals("Buen juego", dp.tomarPista());
     }
 }
