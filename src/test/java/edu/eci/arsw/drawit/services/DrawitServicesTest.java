@@ -159,4 +159,20 @@ public class DrawitServicesTest {
         dp.setGanador("UsuarioPrueba2");
         assertNotEquals(usuario2, dp.getGanador());
     }
+
+    @Test
+    public void nodeberiaGuadarUsuarioDosVeces() throws DrawitPersistenceException {
+        ArrayList<Point> puntosPrueba1  = new ArrayList();
+        Point p1 = new Point(1, 2);
+        ArrayList<Point> puntosPrueba2  = new ArrayList();
+        Point p2 = new Point(3, 4);
+        puntosPrueba1.add(p1);
+        puntosPrueba2.add(p2);
+        usuario1 = new User("UsuarioPrueba", puntosPrueba1);
+        usuario2 = new User("UsuarioPrueba", puntosPrueba2);
+        dp.saveUser(usuario1);
+        dp.saveUser(usuario2);
+        resultado = dp.getUser("UsuarioPrueba");
+        assertNotEquals(usuario2, resultado);
+    }
 }
