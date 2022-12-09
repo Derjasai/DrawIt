@@ -11,10 +11,12 @@ async function signIn(){
         scopes: ['user.read']
     };
     let loginResponse = await client.loginPopup(request);
-    console.dir(loginResponse)
+    console.log("hello")
+    localStorage.setItem("logeo", loginResponse.account.name)
     if (loginResponse.account.name === "Admin"){
         app.createMaster(loginResponse.account.name)
     }else{
+
         app.createUser(loginResponse.account.userName)
     }
 }

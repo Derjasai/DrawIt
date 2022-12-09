@@ -30,9 +30,13 @@ var app = (function (){
         }
     }
 
-    var getUsers = function (name){
-        connectAndSubscribe(sessionStorage.getItem("name"));
-        paintUsers()
+    var getUsers = function (){
+        if(localStorage.getItem("logeo") !== "Admin" || localStorage.getItem("logeo") === null){
+            window.location = "index.html"
+        }else{
+            connectAndSubscribe(sessionStorage.getItem("name"));
+            paintUsers()
+        }
     }
 
     var paintUsers = function (){
@@ -121,8 +125,6 @@ var app = (function (){
                 }else if(eventbody.body === "actualizarUsuarios"){
                     paintUsers();
                 }else if(eventbody.body.includes("seleccionarGanador")){
-                    console.log("hola")
-                    alert("Hola")
                     if(! name.includes("Master")){
 
                         var overgame = document.getElementById('overgame');
@@ -196,24 +198,28 @@ var app = (function (){
     }
 
     var init = function (){
-
-        var name = (sessionStorage.getItem("name"))
-        if(! name.includes("Master")){
-            conectarCavnaParticipante(name)
-            setTimeout(()=>{apiclient.getMasterName(userConnected)},500)
-            var canvas = document.getElementById("myCanvas"),
-                context = canvas.getContext("2d");
-            //if PointerEvent is suppported by the browser:
-            if(window.PointerEvent) {
-                canvas.addEventListener("pointerdown", function(event){
-                    var point = mousePos(event);
-                    name = sessionStorage.getItem("name");
-                    stompClient.send("/app/"+name, {}, JSON.stringify(point));
-                });
-            }
+        if(localStorage.getItem("logeo") === null){
+            window.location = "index.html"
         }else{
-            conectarCavnaParticipante(sessionStorage.getItem("userName"));
+            var name = (sessionStorage.getItem("name"))
+            if(! name.includes("Master")){
+                conectarCavnaParticipante(name)
+                setTimeout(()=>{apiclient.getMasterName(userConnected)},500)
+                var canvas = document.getElementById("myCanvas"),
+                    context = canvas.getContext("2d");
+                //if PointerEvent is suppported by the browser:
+                if(window.PointerEvent) {
+                    canvas.addEventListener("pointerdown", function(event){
+                        var point = mousePos(event);
+                        name = sessionStorage.getItem("name");
+                        stompClient.send("/app/"+name, {}, JSON.stringify(point));
+                    });
+                }
+            }else{
+                conectarCavnaParticipante(sessionStorage.getItem("userName"));
+            }
         }
+
 
     }
 
@@ -255,8 +261,6 @@ var app = (function (){
         openWin: openWin,
         publicarPregunta: publicarPregunta,
         guardarPista: guardarPista,
-        getPista:getPista,
-        test: function (){
-        }
+        getPista:getPista
     }
 })();
