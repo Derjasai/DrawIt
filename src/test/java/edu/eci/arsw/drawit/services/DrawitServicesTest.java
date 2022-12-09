@@ -8,10 +8,11 @@ import edu.eci.arsw.drawit.persistence.impl.InMemoryDrawitPersistence;
 
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Set;
+
+import static org.junit.Assert.*;
 
 public class DrawitServicesTest {
     InMemoryDrawitPersistence dp;
@@ -135,15 +136,68 @@ public class DrawitServicesTest {
 
     @Test
     public void deberiaCrearPista() throws DrawitPersistenceException {
-        Pista pis = new Pista("Buen juego", false);
-        dp.savePista(pis);
-        assertEquals("Buen juego", pis.getContenido());
+        Pista pist = new Pista("Buen juego", false);
+        dp.savePista(pist);
+        assertEquals("Buen juego", pist.getContenido());
     }
 
     @Test
     public void deberiaTomarPista() throws DrawitPersistenceException {
-        Pista pis = new Pista("Buen juego", false);
-        dp.savePista(pis);
+        Pista pist = new Pista("Buen juego", false);
+        dp.savePista(pist);
         assertEquals("Buen juego", dp.tomarPista());
+    }
+
+    @Test
+    public void noDeberiaSeleccionarOtroGanadorMismaPartida(){
+        ArrayList<Point> puntosPrueba  = new ArrayList();
+        usuario1 = new User("UsuarioPrueba1", puntosPrueba);
+        dp.saveUser(usuario1);
+        dp.setGanador("UsuarioPrueba1");
+        usuario2 = new User("UsuarioPrueba2", puntosPrueba);
+        dp.saveUser(usuario2);
+        dp.setGanador("UsuarioPrueba2");
+        assertNotEquals(usuario2, dp.getGanador());
+    }
+
+    @Test
+    public void nodeberiaGuadarUsuarioDosVeces() throws DrawitPersistenceException {
+        ArrayList<Point> puntosPrueba1  = new ArrayList();
+        Point p1 = new Point(1, 2);
+        ArrayList<Point> puntosPrueba2  = new ArrayList();
+        Point p2 = new Point(3, 4);
+        puntosPrueba1.add(p1);
+        puntosPrueba2.add(p2);
+        usuario1 = new User("UsuarioPrueba", puntosPrueba1);
+        usuario2 = new User("UsuarioPrueba", puntosPrueba2);
+        dp.saveUser(usuario1);
+        dp.saveUser(usuario2);
+        resultado = dp.getUser("UsuarioPrueba");
+        assertNotEquals(usuario2, resultado);
+    }
+
+    @Test
+    public void deberiaCambiarPista() throws DrawitPersistenceException {
+        Pista pist1 = new Pista("Buen juego", false);
+        dp.savePista(pist1);
+        Pista pist2 = new Pista("Mal juego", false);
+        dp.savePista(pist2);
+        assertEquals("Mal juego", dp.tomarPista());
+    }
+
+    @Test
+    public void deberiaAgregarMaster(){
+        ArrayList<Point> puntosPrueba  = new ArrayList();
+        usuario1 = new User("UsuarioPruebaMaster", puntosPrueba);
+        dp.saveUser(usuario1);
+        assertEquals(usuario1, dp.getMasterName());
+    }
+
+    @Test
+    public void noDeberiaSerMaster(){
+        ArrayList<Point> puntosPrueba  = new ArrayList();
+        usuario1 = new User("UsuarioPrueba", puntosPrueba);
+        dp.saveUser(usuario1);
+        assertEquals(null, dp.getMasterName());
     }
 }
