@@ -4,8 +4,8 @@
   <modelVersion>4.0.0</modelVersion>  
   <groupId>edu.eci.pdsw.msgbroker</groupId>  
   <artifactId>drawit-api</artifactId>  
-  <version>0.0.1-SNAPSHOT</version>  
-  <packaging>jar</packaging>  
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
   <name>Drawit_API</name>  
   <description>Description</description>  
   <parent> 
@@ -81,14 +81,24 @@
     <dependency> 
       <groupId>javax.xml.bind</groupId>  
       <artifactId>jaxb-api</artifactId>  
-      <version>2.3.1</version> 
+      <version>2.3.1</version>
     </dependency>
+
+
+    <dependency>
+      <groupId>org.junit.vintage</groupId>
+      <artifactId>junit-vintage-engine</artifactId>
+      <version>5.4.0</version>
+      <scope>test</scope>
+    </dependency>
+
     <dependency>
       <groupId>org.testng</groupId>
       <artifactId>testng</artifactId>
       <version>RELEASE</version>
       <scope>test</scope>
     </dependency>
+
   </dependencies>  
   <dependencyManagement> 
     <dependencies> 
@@ -98,9 +108,10 @@
         <version>${spring-cloud-azure.version}</version>  
         <type>pom</type>  
         <scope>import</scope> 
-      </dependency> 
+      </dependency>
     </dependencies> 
-  </dependencyManagement>  
+  </dependencyManagement>
+
   <build> 
     <plugins> 
       <plugin> 
@@ -135,11 +146,35 @@
           </deployment>
         </configuration>
       </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.19.1</version>
+        <version>3.0.0-M7</version>
+        <configuration>
+          <includes>
+            <include>**/*Test.java</include>
+          </includes>
+          <excludes>
+            <exclude>**/BaseTest.java</exclude>
+            <exclude>**/TestsUtil.java</exclude>
+          </excludes>
+        </configuration>
       </plugin>
-    </plugins> 
-  </build> 
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.0.0-M7</version>
+        <dependencies>
+          <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.4.0</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+
+    </plugins>
+  </build>
 </project>

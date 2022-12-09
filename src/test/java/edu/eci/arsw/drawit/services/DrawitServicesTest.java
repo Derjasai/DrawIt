@@ -1,3 +1,5 @@
+package edu.eci.arsw.drawit.services;
+
 import edu.eci.arsw.drawit.model.Point;
 import edu.eci.arsw.drawit.model.User;
 import edu.eci.arsw.drawit.persistence.DrawitPersistenceException;
@@ -9,7 +11,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 
-public class UnitTest {
+public class DrawitServicesTest {
     InMemoryDrawitPersistence dp;
     User usuario1, resultado;
 
