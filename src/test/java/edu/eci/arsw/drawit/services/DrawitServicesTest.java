@@ -63,4 +63,50 @@ public class DrawitServicesTest {
         resultado = dp.getUser("UsuarioPrueba");
         assertEquals(puntosPrueba, resultado.getPoints());
     }
+
+    @Test
+    public void deberiaObtenerPuntosUsuarioCorrecto(){
+        ArrayList<Point> puntosPrueba1  = new ArrayList();
+        Point p1 = new Point(1, 2);
+        Point p2 = new Point(3, 4);
+        puntosPrueba1.add(p1);
+        puntosPrueba1.add(p2);
+        ArrayList<Point> puntosPrueba2  = new ArrayList();
+        Point p3 = new Point(5, 6);
+        Point p4 = new Point(7, 8);
+        puntosPrueba2.add(p3);
+        puntosPrueba2.add(p4);
+        usuario1 = new User("UsuarioPrueba1", puntosPrueba1);
+        usuario2 = new User("UsuarioPrueba2", puntosPrueba2);
+        dp.saveUser(usuario1);
+        dp.saveUser(usuario2);
+        assertEquals(puntosPrueba2, dp.getPointsByUser("UsuarioPrueba2"));
+    }
+
+    @Test
+    public void deberiaAgregarPuntoCorrectamente(){
+        ArrayList<Point> puntosPrueba  = new ArrayList();
+        usuario1 = new User("UsuarioPrueba", puntosPrueba);
+        dp.saveUser(usuario1);
+        Point p1 = new Point(1, 2);
+        puntosPrueba.add(p1);
+        usuario1 = new User("UsuarioPrueba", puntosPrueba);
+        dp.addPointToUser(usuario1);
+        assertEquals(puntosPrueba, dp.getPointsByUser("UsuarioPrueba"));
+    }
+
+    @Test
+    public void deberiaBorrarTodosPuntos() throws DrawitPersistenceException {
+        ArrayList<Point> puntosPrueba  = new ArrayList();
+        Point p1 = new Point(1, 2);
+        Point p2 = new Point(3, 4);
+        Point p3 = new Point(5, 6);
+        puntosPrueba.add(p1);
+        puntosPrueba.add(p2);
+        puntosPrueba.add(p3);
+        usuario1 = new User("UsuarioPrueba", puntosPrueba);
+        dp.saveUser(usuario1);
+        dp.delteAllPointsUser("UsuarioPrueba");
+        assertEquals(0, dp.getUser("UsuarioPrueba").getPoints().size());
+    }
 }
