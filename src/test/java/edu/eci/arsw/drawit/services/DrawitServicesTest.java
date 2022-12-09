@@ -136,15 +136,15 @@ public class DrawitServicesTest {
 
     @Test
     public void deberiaCrearPista() throws DrawitPersistenceException {
-        Pista pis = new Pista("Buen juego", false);
-        dp.savePista(pis);
-        assertEquals("Buen juego", pis.getContenido());
+        Pista pist = new Pista("Buen juego", false);
+        dp.savePista(pist);
+        assertEquals("Buen juego", pist.getContenido());
     }
 
     @Test
     public void deberiaTomarPista() throws DrawitPersistenceException {
-        Pista pis = new Pista("Buen juego", false);
-        dp.savePista(pis);
+        Pista pist = new Pista("Buen juego", false);
+        dp.savePista(pist);
         assertEquals("Buen juego", dp.tomarPista());
     }
 
@@ -174,5 +174,14 @@ public class DrawitServicesTest {
         dp.saveUser(usuario2);
         resultado = dp.getUser("UsuarioPrueba");
         assertNotEquals(usuario2, resultado);
+    }
+
+    @Test
+    public void deberiaCambiarPista() throws DrawitPersistenceException {
+        Pista pist1 = new Pista("Buen juego", false);
+        dp.savePista(pist1);
+        Pista pist2 = new Pista("Mal juego", false);
+        dp.savePista(pist2);
+        assertEquals("Mal juego", dp.tomarPista());
     }
 }
