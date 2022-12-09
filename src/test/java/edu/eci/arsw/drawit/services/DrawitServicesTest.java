@@ -192,4 +192,12 @@ public class DrawitServicesTest {
         dp.saveUser(usuario1);
         assertEquals(usuario1, dp.getMasterName());
     }
+
+    @Test
+    public void noDeberiaSerMaster(){
+        ArrayList<Point> puntosPrueba  = new ArrayList();
+        usuario1 = new User("UsuarioPrueba", puntosPrueba);
+        dp.saveUser(usuario1);
+        assertEquals(null, dp.getMasterName());
+    }
 }
