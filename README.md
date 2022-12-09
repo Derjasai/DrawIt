@@ -9,12 +9,12 @@
 * Daniel Ramos
 * Yeison Steven
 
-#### Link Heroku
-https://drawit-nyd.herokuapp.com
+#### Link Proyecto
+https://drawit-api-1670199012625.azurewebsites.net
 
 
 ![SonarCloud] (https://img.shields.io/badge/Sonar%20cloud-F3702A?style=for-the-badge&logo=sonarcloud&logoColor=white)
 
 
-#### Link documento de arquitectura
-https://github.com/Derjasai/DrawIt/wiki
+#### Documento de arquitectura
+El documento de arquitectura se encuentra como un .docx en el respositorio
