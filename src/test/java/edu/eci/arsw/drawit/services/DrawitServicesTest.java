@@ -1,5 +1,6 @@
 package edu.eci.arsw.drawit.services;
 
+import edu.eci.arsw.drawit.model.Pista;
 import edu.eci.arsw.drawit.model.Point;
 import edu.eci.arsw.drawit.model.User;
 import edu.eci.arsw.drawit.persistence.DrawitPersistenceException;
@@ -130,5 +131,12 @@ public class DrawitServicesTest {
         dp.saveUser(usuario3);
         dp.deleteParticipantes();
         assertEquals(0, dp.getAllUsers().size());
+    }
+
+    @Test
+    public void deberiaCrearPista() throws DrawitPersistenceException {
+        Pista pis = new Pista("Buen juego", false);
+        dp.savePista(pis);
+        assertEquals("Buen juego", pis.getContenido());
     }
 }
