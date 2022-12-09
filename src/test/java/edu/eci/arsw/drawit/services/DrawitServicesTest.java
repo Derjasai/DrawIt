@@ -109,4 +109,13 @@ public class DrawitServicesTest {
         dp.delteAllPointsUser("UsuarioPrueba");
         assertEquals(0, dp.getUser("UsuarioPrueba").getPoints().size());
     }
+
+    @Test
+    public void deberiaRetornarUsuarioGanador(){
+        ArrayList<Point> puntosPrueba  = new ArrayList();
+        usuario1 = new User("UsuarioPrueba", puntosPrueba);
+        dp.saveUser(usuario1);
+        dp.setGanador("UsuarioPrueba");
+        assertEquals(usuario1, dp.getGanador());
+    }
 }
