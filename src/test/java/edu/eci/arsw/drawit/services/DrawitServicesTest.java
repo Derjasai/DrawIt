@@ -184,4 +184,12 @@ public class DrawitServicesTest {
         dp.savePista(pist2);
         assertEquals("Mal juego", dp.tomarPista());
     }
+
+    @Test
+    public void deberiaAgregarMaster(){
+        ArrayList<Point> puntosPrueba  = new ArrayList();
+        usuario1 = new User("UsuarioPruebaMaster", puntosPrueba);
+        dp.saveUser(usuario1);
+        assertEquals(usuario1, dp.getMasterName());
+    }
 }
