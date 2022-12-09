@@ -94,4 +94,19 @@ public class DrawitServicesTest {
         dp.addPointToUser(usuario1);
         assertEquals(puntosPrueba, dp.getPointsByUser("UsuarioPrueba"));
     }
+
+    @Test
+    public void deberiaBorrarTodosPuntos() throws DrawitPersistenceException {
+        ArrayList<Point> puntosPrueba  = new ArrayList();
+        Point p1 = new Point(1, 2);
+        Point p2 = new Point(3, 4);
+        Point p3 = new Point(5, 6);
+        puntosPrueba.add(p1);
+        puntosPrueba.add(p2);
+        puntosPrueba.add(p3);
+        usuario1 = new User("UsuarioPrueba", puntosPrueba);
+        dp.saveUser(usuario1);
+        dp.delteAllPointsUser("UsuarioPrueba");
+        assertEquals(0, dp.getUser("UsuarioPrueba").getPoints().size());
+    }
 }
