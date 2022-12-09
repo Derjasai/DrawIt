@@ -8,10 +8,11 @@ import edu.eci.arsw.drawit.persistence.impl.InMemoryDrawitPersistence;
 
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Set;
+
+import static org.junit.Assert.*;
 
 public class DrawitServicesTest {
     InMemoryDrawitPersistence dp;
@@ -145,5 +146,17 @@ public class DrawitServicesTest {
         Pista pis = new Pista("Buen juego", false);
         dp.savePista(pis);
         assertEquals("Buen juego", dp.tomarPista());
+    }
+
+    @Test
+    public void noDeberiaSeleccionarOtroGanadorMismaPartida(){
+        ArrayList<Point> puntosPrueba  = new ArrayList();
+        usuario1 = new User("UsuarioPrueba1", puntosPrueba);
+        dp.saveUser(usuario1);
+        dp.setGanador("UsuarioPrueba1");
+        usuario2 = new User("UsuarioPrueba2", puntosPrueba);
+        dp.saveUser(usuario2);
+        dp.setGanador("UsuarioPrueba2");
+        assertNotEquals(usuario2, dp.getGanador());
     }
 }
