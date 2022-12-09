@@ -18,7 +18,7 @@ https://drawit-api-1670199012625.azurewebsites.net
 
 #### Documento de arquitectura
 El documento de arquitectura se encuentra como un .docx en el respositorio
-
+O en el Link: https://github.com/Derjasai/DrawIt/wiki
 
 #### Pruebas unitarias
 ![image](https://user-images.githubusercontent.com/79550161/206643200-ff351107-7905-419c-b85f-3b4ad207f939.png)
