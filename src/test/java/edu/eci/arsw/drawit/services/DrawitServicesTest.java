@@ -118,4 +118,17 @@ public class DrawitServicesTest {
         dp.setGanador("UsuarioPrueba");
         assertEquals(usuario1, dp.getGanador());
     }
+
+    @Test
+    public void deberiaEliminarParticipante(){
+        ArrayList<Point> puntosPrueba  = new ArrayList();
+        usuario1 = new User("UsuarioPrueba1", puntosPrueba);
+        usuario2 = new User("UsuarioPrueba2", puntosPrueba);
+        usuario3 = new User("UsuarioPrueba3", puntosPrueba);
+        dp.saveUser(usuario1);
+        dp.saveUser(usuario2);
+        dp.saveUser(usuario3);
+        dp.deleteParticipantes();
+        assertEquals(0, dp.getAllUsers().size());
+    }
 }
