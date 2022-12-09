@@ -48,4 +48,19 @@ public class DrawitServicesTest {
         Set<User> usuarios = dp.getAllUsers();
         assertEquals(usuarios.size(), 3);
     }
+
+    @Test
+    public void deberiaObtenerPuntosCorrectamente() throws DrawitPersistenceException {
+        ArrayList<Point> puntosPrueba  = new ArrayList();
+        Point p1 = new Point(1, 2);
+        Point p2 = new Point(3, 4);
+        Point p3 = new Point(5, 6);
+        puntosPrueba.add(p1);
+        puntosPrueba.add(p2);
+        puntosPrueba.add(p3);
+        usuario1 = new User("UsuarioPrueba", puntosPrueba);
+        dp.saveUser(usuario1);
+        resultado = dp.getUser("UsuarioPrueba");
+        assertEquals(puntosPrueba, resultado.getPoints());
+    }
 }
